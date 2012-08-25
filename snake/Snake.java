@@ -122,7 +122,7 @@ public class Snake {
 	}
 	
 	public void Die() {
-		for (int i = this.ptr; i != this.length && this.x[i] != -1; i = (i + this.length - 1) % this.length) {
+		for (int i = this.ptr; i != this.ptr && this.x[i] != -1; i = (i + this.length - 1) % this.length) {
 			Map.Remove(this.x[i], this.y[i]);
 		}
 		
