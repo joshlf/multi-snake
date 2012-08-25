@@ -55,7 +55,7 @@ public abstract class Renderer{
 
 	}
 	public void effect(){
-		randomize(127);
+		//randomize(127);
 	}
 	public void randomize(int elementsUsed){
 		if(elementsUsed > this.elementsUsed){
