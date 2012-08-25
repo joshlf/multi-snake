@@ -65,7 +65,7 @@ public class SnakeMain {
 		long t0 = System.currentTimeMillis();
 		long t1;
 		
-		controller.keyReset();
+	controller.keyReset();
 		while (running) {
 			for (Snake snake: snakes) {
 				snake.Update();
