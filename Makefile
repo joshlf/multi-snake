@@ -8,5 +8,5 @@ snake : $(snakeSrc) $(libSrc)
 	javac snake/SnakeMain.java && jar -cf Snake.jar snake/*.java core/*.java && echo "Compile successful, executable jar created."
 
 clean :
-	rm */*.clean -R
+	rm */*.class -R
 	rm Snake.jar

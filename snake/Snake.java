@@ -51,22 +51,45 @@ public class Snake {
 		}
 	}
 	
+	float moveRate = .5f;
+	float moveCtr;
+	int[] cuedKeys = new int[16];
+	int keyCuePos;
 	public void Update() {
 		int dir = SnakeMain.controller.getKeyPressed(this.idx);
-		if (dir == DirectionalController.UP && dy != 1) {
-			dx = 0;
-			dy = -1;
-		} else if (dir == DirectionalController.LEFT && dx != 1) {
-			dx = -1;
-			dy = 0;
-		} else if (dir == DirectionalController.DOWN && dy != -1) {
-			dx = 0;
-			dy = 1;
-		} else if (dir == DirectionalController.RIGHT && dx != -1) {
-			dx = 1;
-			dy = 0;
+		moveCtr += moveRate;
+		if(dir != DirectionalController.NONE){
+			if(keyCuePos < cuedKeys.length)
+			{
+				keyCuePos++;
+				
+				cuedKeys[keyCuePos] = dir;
+			}
+			else
+				System.out.println("Stop pressing keys!");
 		}
-		this.moveSnake();
+		dir = DirectionalController.NONE;
+		while(moveCtr > 1){
+			moveCtr --;
+			if(keyCuePos >= 0){
+				dir = cuedKeys[keyCuePos];
+				keyCuePos--;
+			}
+			if (dir == DirectionalController.UP && dy != 1) {
+				dx = 0;
+				dy = -1;
+			} else if (dir == DirectionalController.LEFT && dx != 1) {
+				dx = -1;
+				dy = 0;
+			} else if (dir == DirectionalController.DOWN && dy != -1) {
+				dx = 0;
+				dy = 1;
+			} else if (dir == DirectionalController.RIGHT && dx != -1) {
+				dx = 1;
+				dy = 0;
+			}
+			this.moveSnake();
+		}
 	}
 	
 	private void moveSnake() {
@@ -82,10 +105,13 @@ public class Snake {
 		this.y[this.ptr] = (this.y[oldPtr] + dy + Map.height) % Map.height;
 		
 		Map.MoveFromTo(oldX, oldY, this.x[this.ptr], this.y[this.ptr], this);
-	}
-	
+	}	
 	private void eat() {
-		int newLength = this.length + this.addFoodLength;
+		grow(4);
+		moveRate += .1f;
+	}
+	private void grow(int length){
+		int newLength = this.length + addFoodLength;
 		int[] tmpX = new int[newLength];
 		int[] tmpY = new int[newLength];
 		
@@ -110,7 +136,6 @@ public class Snake {
 		this.length = newLength;
 		this.ptr = this.addFoodLength;
 	}
-	
 	public void Collide(byte item) {
 		System.out.println("Collided with " + item + "!");
 		switch (item) {

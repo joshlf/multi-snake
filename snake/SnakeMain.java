@@ -51,7 +51,7 @@ public class SnakeMain {
 			snakes[i] = new Snake(i, i, 10, 10, i);
 		}
 		
-		FPS = 5;
+		FPS = 20;
 		TPF = 1000 / FPS;
 	}
 	
