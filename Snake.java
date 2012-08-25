@@ -47,18 +47,22 @@ public class Snake {
 	public void Update() {
 		switch (SnakeMain.controller.getKeyPressed(this.idx)) {
 			case DirectionalController.UP:
+			System.out.println("UP");
 			dx = 0;
 			dy = -1;
 			break;
 			case DirectionalController.LEFT:
+			System.out.println("LEFT");
 			dx = -1;
 			dy = 0;
 			break;
 			case DirectionalController.DOWN:
+			System.out.println("DOWN");
 			dx = 0;
 			dy = 1;
 			break;
 			case DirectionalController.RIGHT:
+			System.out.println("RIGHT");
 			dx = 1;
 			dy = 0;
 			break;
