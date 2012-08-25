@@ -14,6 +14,7 @@ public class Map {
 		
 		tiles = new byte[width][height];
 		initTiles();
+		placeFood(-1, -1);
 	}
 	
 	public static void MoveTo(int x, int y, Snake s) {
@@ -21,6 +22,7 @@ public class Map {
 			s.Collide(tiles[x][y]);
 			SnakeMain.Collide(x, y, s.idx, tiles[x][y]);
 		}
+		tiles[x][y] = SNAKE;
 	}
 	
 	static void initTiles() {
@@ -49,6 +51,19 @@ public class Map {
         }
     }
 
-	static boolean rand(float chance) { return (Math.random() < chance);
+	static boolean rand(float chance) { return (Math.random() < chance); }
+	
+	// Passing (-1, -1) indicates place but don't erase
+	static void placeFood(int x, int y) {
+		if (x != -1 && y != -1 && tiles[x][y] == FOOD)
+			tiles[x][y] = BLANK;
+		while (true) {
+			int x1 = (int)(Math.random() * width);
+			int y1 = (int)(Math.random() * height);
+			if (tiles[x1][y1] == BLANK) {
+				tiles[x1][y1] = FOOD;
+				break;
+			}
+		}
 	}
 }
