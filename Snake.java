@@ -64,15 +64,19 @@ public class Snake {
 			break;
 		}
 		this.moveSnake();
-		System.out.println(this.ptr + " " + this.x[this.ptr] + " " + this.y[this.ptr]);
 		Map.MoveTo(this.x[this.ptr], this.y[this.ptr], this);
 	}
 	
 	private void moveSnake() {
+		// System.out.println("Moving...");
+		// System.out.println(this.ptr + " " + this.x[this.ptr] + " " + this.y[this.ptr]);
 		int oldPtr = this.ptr;
+		// System.out.println(oldPtr);
 		this.ptr = (this.ptr + 1) % this.length;
-		this.x[this.ptr] = (this.x[oldPtr] + dx) % Map.width;
-		this.y[this.ptr] = (this.y[oldPtr] + dy) % Map.height;
+		// System.out.println(this.ptr);
+		this.x[this.ptr] = (this.x[oldPtr] + dx + Map.width) % Map.width;
+		this.y[this.ptr] = (this.y[oldPtr] + dy + Map.height) % Map.height;
+		// System.out.println(this.ptr + " " + this.x[this.ptr] + " " + this.y[this.ptr]);
 	}
 	
 	private void eat() {
