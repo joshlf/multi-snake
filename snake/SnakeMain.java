@@ -130,7 +130,7 @@ public class SnakeMain {
 		for(Snake snake : snakes) {
 			snake.render(renderer, frameCount);
 		}
-		renderer.renderMap(Map.tiles, frameCount);
+		renderer.renderMap(Map.tiles, offsetX, offsetY, frameCount);
 		
 		String scoreStr = "";
 		
