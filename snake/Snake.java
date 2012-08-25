@@ -70,12 +70,17 @@ public class Snake {
 	}
 	
 	private void moveSnake() {
+		// Find first "displayed" snake bit at tail
+		int i;
+		for (i = (this.ptr + 1) % this.length; this.x[i] == -1; i = (i + 1) % this.length) {}
+		int oldX = this.x[i];
+		int oldY = this.y[i];
+		
 		int oldPtr = this.ptr;
-		int oldX = this.x[oldPtr];
-		int oldY = this.y[oldPtr];
 		this.ptr = (this.ptr + 1) % this.length;
 		this.x[this.ptr] = (this.x[oldPtr] + dx + Map.width) % Map.width;
 		this.y[this.ptr] = (this.y[oldPtr] + dy + Map.height) % Map.height;
+		
 		Map.MoveFromTo(oldX, oldY, this.x[this.ptr], this.y[this.ptr], this);
 	}
 	
@@ -107,6 +112,7 @@ public class Snake {
 	}
 	
 	public void Collide(byte item) {
+		System.out.println("Collided with " + item + "!");
 		switch (item) {
 			case Map.FOOD:
 			this.eat();
@@ -115,7 +121,7 @@ public class Snake {
 	}
 	
 	public void Die() {
-		for (int i = 0; i < this.length; i++) {
+		for (int i = this.ptr; i != this.length && this.x[i] != -1; i = (i + this.length - 1) % this.length) {
 			Map.Remove(this.x[i], this.y[i]);
 		}
 		
@@ -124,7 +130,7 @@ public class Snake {
 	}
 	public void render(Renderer renderer, int frameCount){
 		for(int i = 0; i < x.length; i++){
-			renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
-		}
+					renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
+				}
 	}
 }

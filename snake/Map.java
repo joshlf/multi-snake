@@ -26,8 +26,9 @@ public class Map {
 		if (tiles[x1][y1] != BLANK) {
 			s.Collide(tiles[x1][y1]);
 			SnakeMain.Collide(x1, y1, s.idx, tiles[x1][y1]);
+		} else {
+			tiles[x1][y1] = SNAKE;
 		}
-		tiles[x1][y1] = SNAKE;
 	}
 	
 	public static void Remove(int x, int y) {
