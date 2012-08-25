@@ -1,0 +1,5 @@
+public abstract class RenderOut{
+	public int screenWidth;
+	public int screenHeight;
+	public abstract void drawImage(BufferedImage image);
+}

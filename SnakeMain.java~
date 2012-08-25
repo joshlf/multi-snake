@@ -35,7 +35,7 @@ public class SnakeMain {
 		int tileWidth = 8;
 		
 		controller = new DirectionalController(2);
-		GameFrame.Init(width * tileWidth, height * tileWidth, controller);
+		GameFrame.Init(width, height, controller);
 
 		renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
