@@ -65,11 +65,12 @@ public class SnakeMain {
 		long t0 = System.currentTimeMillis();
 		long t1;
 		
+		controller.keyReset();
 		while (running) {
-			controller.keyReset();
 			for (Snake snake: snakes) {
 				snake.Update();
 			}
+			controller.keyReset();
 			render();
 
 			t1 = System.currentTimeMillis();
