@@ -27,13 +27,13 @@ public class Map {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				if (((i & 1) != 0 || (j & 1) != 0)) {
-					tiles[i][j] = WALL;
+					tiles[i][j] = BLANK;
 				} else {
 					tiles[i][j] = BLANK;
 				}
 			}
 		}
-		randPath(0, 0, 100);
+		// randPath(0, 0, 100);
 	}
 	
 	static void randPath(int i, int j, int depth) {

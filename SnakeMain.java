@@ -1,7 +1,6 @@
 import java.awt.Graphics;
 import java.util.Random;
 
-import core.DirectionalController;
 import core.*;
 
 public class SnakeMain {
@@ -39,6 +38,7 @@ public class SnakeMain {
 		controller = new DirectionalController(2);
 		GameFrame.Init(width * tileWidth, height * tileWidth, controller);
 
+		//renderer = new VortexRenderer(width, height, tileWidth, 127);
 		renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);
@@ -74,6 +74,7 @@ public class SnakeMain {
 			t1 = System.currentTimeMillis();
 			long timePassed = t1 - t0;
 			t0 = t1;
+			frameCount++;
 			if (timePassed < TPF) {
 				try {
 					Thread.sleep(TPF - timePassed);
@@ -89,7 +90,7 @@ public class SnakeMain {
         public static void render(){
 		renderer.clear();
 		for(Snake snake : snakes) {
-			snake.render(renderer);
+			snake.render(renderer, frameCount);
 		}
 		renderer.renderMap(Map.tiles, frameCount);
 		renderer.drawElement(4, 4, 1, (byte)(10));		
