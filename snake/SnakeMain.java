@@ -63,16 +63,18 @@ public class SnakeMain {
 		byte[] shapes = new byte[Map.NUM_TYPES];
 		Color[] colors = new Color[Map.NUM_TYPES];
 		
-		for (int i = 0; i < shapes.length; i++) {
-			shapes[i] = Renderer.SHAPE_RANDOM;
-		}
+		// for (int i = 0; i < shapes.length; i++) {
+		// 	shapes[i] = Renderer.SHAPE_RANDOM;
+		// }
 		for (int i = 0; i < colors.length; i++) {
 			colors[i] = Renderer.COLOR_RANDOM;
 		}
+		colors[Map.MARGIN] = new Color(0, 0, 0, 128);
 		
 		shapes[Map.WALL] = Renderer.SHAPE_SQUARE;
 		shapes[Map.SNAKE] = Renderer.SHAPE_SQUARE;
 		shapes[Map.FOOD] = Renderer.SHAPE_SQUARE;
+		shapes[Map.MARGIN] = Renderer.SHAPE_SQUARE;
 		
 		renderer = new StarRenderer(width + xMarg * 2, height + yMarg * 2, tileWidth, colors, shapes, shapes.length);
 		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
@@ -131,6 +133,14 @@ public class SnakeMain {
 			snake.render(renderer, frameCount);
 		}
 		renderer.renderMap(Map.tiles, frameCount, offsetX, offsetY);
+		
+		// Render margin mask
+		for (int i = 0; i < offsetX + Map.width; i++) {
+			for (int j = 0; j < offsetY + Map.height; j++) {
+				renderer.drawElement(i, j, frameCount, Map.MARGIN);
+				// renderer.drawElement(this.x[i] + SnakeMain.offsetX, this.y[i] + SnakeMain.offsetY, frameCount, Map.SNAKE);
+			}
+		}
 		
 		String scoreStr = "";
 		
