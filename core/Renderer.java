@@ -16,7 +16,7 @@ public abstract class Renderer{
 		this.width = width;
 		this.height = height;
 	        this.tileSize = tileSize;
-		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		buffer = new BufferedImage(width * tileSize, height * tileSize, BufferedImage.TYPE_INT_RGB);
 		g = buffer.getGraphics();
 	}
 

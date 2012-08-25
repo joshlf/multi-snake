@@ -55,5 +55,6 @@ public class Map {
         }
     }
 
-	static boolean rand(float chance) { return (Math.random() < chance); }
+	static boolean rand(float chance) { return (Math.random() < chance);
+	}
 }

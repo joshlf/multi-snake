@@ -39,7 +39,7 @@ public class SnakeMain {
 
 		renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
-		Map.Init(width, height, 2, 2);
+		Map.Init(width, height);
 		
 		SnakeMain.snakeCount = snakeCount;
 		snakes = new Snake[snakeCount];
