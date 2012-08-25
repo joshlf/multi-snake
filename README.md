@@ -1,4 +1,4 @@
 multi-snake
 ===========
 
-Multiplayer snake (processing)
+Multiplayer snake (Java)
