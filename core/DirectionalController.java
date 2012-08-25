@@ -1,16 +1,20 @@
 package core;
 import java.awt.event.*;
 public class DirectionalController implements KeyListener{
-
-    public static final int RIGHT = 0, UP = 1, LEFT = 2, DOWN = 3, NONE = 4, COUNT = 5;
+    public static final int LEFT = 0, UP = 1, RIGHT = 2, DOWN = 3, NONE = 4;
     //keyMappings follows [player][key] indexing.
     public static int[][] keyMappings = new int[][] {
 	new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN}, 
 	new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S}
     };
     public boolean[] downs = new boolean[keyMappings.length];
-    public int[] keys = new int[COUNT];
+    public int players;
+    public int[] keys;
 
+    public DirectionalController(int players){
+	this.players = players;
+	keys = new int[players];
+    }
 //key events
     public void keyReset()
     {
@@ -51,5 +55,9 @@ public class DirectionalController implements KeyListener{
         //int key = e.getKeyCode();
         //if (key > keys.length);
         //keys[key] = false;
+    }
+
+    public int getKeyPressed(int index){
+	return keys[index];
     }
 }
