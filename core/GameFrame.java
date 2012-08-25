@@ -12,10 +12,11 @@ import java.awt.event.KeyListener;
 // frame to frame.
 public class GameFrame
 {
-    int width, height;
-    Frame frame;
-    Graphics frameG;
-    public GameFrame(int width, int height, KeyListener listener){
+
+    public static int width, height;
+    public static Frame frame;
+    public static Graphics frameG;
+    public static void Init(int width, int height, KeyListener listener){
         frame = new Frame();
         frame.setSize(width + 10, height + 20);
         frame.setVisible(true);
@@ -24,10 +25,14 @@ public class GameFrame
     }
 
     //Graphics
-    public void render(Image image)
+    public static void render(Image image)
     {
         // bufferG.drawImage(buffer, 5, 20, null);
         frame.getGraphics().drawImage(image, 5, 20, null);
         // frame.repaint();
+    }
+
+    public static byte getKeyPressed(int index){
+	getKeyPressed
     }
 }
