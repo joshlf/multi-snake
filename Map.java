@@ -17,12 +17,15 @@ public class Map {
 		placeFood(-1, -1);
 	}
 	
-	public static void MoveTo(int x, int y, Snake s) {
-		if (tiles[x][y] != BLANK) {
-			s.Collide(tiles[x][y]);
-			SnakeMain.Collide(x, y, s.idx, tiles[x][y]);
+	// (x0, y0) is where tail used to be.
+	// (x1, y1) is where head now is.
+	public static void MoveFromTo(int x0, int y0, int x1, int y1, Snake s) {
+		tiles[x0][y0] = BLANK;
+		if (tiles[x1][y1] != BLANK) {
+			s.Collide(tiles[x1][y1]);
+			SnakeMain.Collide(x1, y1, s.idx, tiles[x1][y1]);
 		}
-		tiles[x][y] = SNAKE;
+		tiles[x1][y1] = SNAKE;
 	}
 	
 	static void initTiles() {
