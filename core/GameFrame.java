@@ -5,7 +5,9 @@ import java.awt.Image;
 import java.awt.Graphics;
 import java.awt.Color;
 
-import java.awt.event.KeyListener;
+import java.awt.event.*;
+
+import snake.SnakeMain;
 
 // SnakeFrame is the main loop of the game,
 // handling logic and movement from
@@ -21,6 +23,11 @@ public class GameFrame
         frame.setSize(width + 10, height + 20);
         frame.setVisible(true);
         frame.addKeyListener(listener);
+	frame.addWindowListener(new WindowAdapter() {
+	    public void windowClosing(WindowEvent evt) {
+		SnakeMain.kill();
+	    }
+	});
         frameG = frame.getGraphics();
     }
 
@@ -31,4 +38,5 @@ public class GameFrame
         frame.getGraphics().drawImage(image, 5, 20, null);
         // frame.repaint();
     }
+
 }

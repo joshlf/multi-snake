@@ -1,6 +1,7 @@
 package core;
 import java.awt.event.*;
-import snake.Map;
+import snake.*;
+
 public class DirectionalController implements KeyListener{
     public static final int RIGHT = 0, UP = 1, LEFT = 2, DOWN = 3, NONE = 4;
     //keyMappings follows [player][key] indexing.
@@ -47,6 +48,9 @@ public class DirectionalController implements KeyListener{
                 }
             }
         }
+	if (key == KeyEvent.VK_ESCAPE){
+		SnakeMain.kill();
+	}
 //#Stop pretending.
     }
 

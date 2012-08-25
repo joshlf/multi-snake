@@ -111,4 +111,8 @@ public class SnakeMain {
 			
 		}
 	}
+	//clean up and kill the game
+	public void kill(){
+		System.exit(0);
+	}
 }

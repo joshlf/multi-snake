@@ -30,7 +30,8 @@ public class VortexRenderer extends Renderer{
 
 	int frame = 0;
 	public void clear(){
-System.out.println(frame++);
+		frame++;
+//System.out.println(frame++);
 		int xSize = width * tileSize;
 		int ySize = height * tileSize;
 		for(int x = 0; x < xSize; x++){
