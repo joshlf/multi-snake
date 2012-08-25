@@ -3,7 +3,7 @@ import java.util.Random;
 
 import core.*;
 public class SnakeMain {
-	public DirectionalController control;
+	public static DirectionalController controller;
 	public static void main(String[] args) {
 		int mapWidth = 100;
 		int mapHeight = 75;
@@ -27,10 +27,12 @@ public class SnakeMain {
 	
 	public static Snake[] snakes;
 	public static int snakeCount;
+	private static boolean running = true;
+	
 	public static void Init(int width, int height, int snakeCount) {
 		int tileWidth = 8;
 		
-		controller = new DirectionalController();
+		controller = new DirectionalController(2);
 		GameFrame.Init(width, height, controller);
 		Map.Init(width, height, 2, 2);
 		
@@ -58,10 +60,10 @@ public class SnakeMain {
 		
 		while (running) {
 			for (Snake snake: snakes) {
-				snake.update();
+				snake.Update();
 			}
 			
-			render(SnakeFrame.bufferG);
+			render(GameFrame.bufferG);
 			
 			t1 = System.currentTimeMillis();
 			long timePassed = t1 - t0;
@@ -79,7 +81,7 @@ public class SnakeMain {
 	}
 	
 	public static void Collide(int x, int y, int idx, byte item) {
-		switch item {
+		switch (item) {
 			case WALL:
 			snakes[idx].Die();
 			case SNAKE:
