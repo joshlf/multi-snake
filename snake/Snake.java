@@ -51,7 +51,7 @@ public class Snake {
 		}
 	}
 	
-	public float moveRate = .5f;
+	float moveRate = .5f;
 	float moveCtr;
 	int[] cuedKeys = new int[16];
 	int keyCuePos;
@@ -111,6 +111,7 @@ public class Snake {
 	
 	private void eat() {
 		grow(this.addFoodLength);
+		this.moveRate += 0.1f;
 	}
 	
 	private void grow(int addFoodLength){
