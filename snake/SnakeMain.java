@@ -40,7 +40,8 @@ public class SnakeMain {
 		controller = new DirectionalController(2);
 		GameFrame.Init(width * tileWidth, height * tileWidth, controller);
 
-		renderer = new SolidColorRenderer(width, height, tileWidth, 127);
+		renderer = new VortexRenderer(width, height, tileWidth, 127);
+		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);
 		
