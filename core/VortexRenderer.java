@@ -47,7 +47,7 @@ public class VortexRenderer extends Renderer{
 				c[0] = c[1] = c[2] = 128;
 
 				for(int i = 0; i < coeffs.length; i++){
-					c[i / 2] += (int)(intSine(x * coeffs[i][0]) + intSine(y * coeffs[i][1]) + intSine(frame * coeffs[i][2])); 
+					c[i / 2] += (int)(intSine(x * coeffs[i][0] + y * coeffs[i][1] + frame * coeffs[i][2])); 
 				}
 				imgInt[x + y * xSize] = c[0] << 16 | c[1] << 8 | c[2];
 			}
