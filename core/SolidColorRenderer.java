@@ -15,6 +15,7 @@ public class SolidColorRenderer extends Renderer{
 		shapes = new byte[127];
 		colors = new Color[127];
 		this.elementsUsed = elementsUsed;
+		randomizeColors();
 	}
 
 	public void randomizeColors(){
@@ -25,16 +26,19 @@ public class SolidColorRenderer extends Renderer{
 	}
 
 	public void clear(){
+		if(frame % 4 == 0) randomizeColors();
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width * tileSize, height * tileSize);
 	}
+	int frame;
 	public void drawElement(int x, int y, int frame, byte elementType){
+		this.frame = frame;
 		//System.out.println("DRAWING");
 		g.setColor(colors[elementType]);
 		x *= tileSize;
 		y *= tileSize;
-		System.out.printf("%d, %d, %d, %d\n",x, y, tileSize, tileSize);
-		g.setColor(Color.WHITE);
+		//System.out.printf("%d, %d, %d, %d\n",x, y, tileSize, tileSize);
+		//g.setColor(Color.WHITE);
 		g.fillRect(x, y, tileSize, tileSize);
 		switch(shapes[elementType]){
 			case SQUARE:

@@ -125,9 +125,9 @@ public class Snake {
 		this.lives--;
 		this.init();
 	}
-	public void render(Renderer renderer){
+	public void render(Renderer renderer, int frameCount){
 		for(int i = 0; i < x.length; i++){
-			renderer.drawElement(x[i], y[i], 1, (byte)(10 + idx));
+			renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
 		}
 	}
 }
