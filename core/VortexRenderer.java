@@ -33,12 +33,14 @@ public class VortexRenderer extends Renderer{
 		//g.setColor(Color.BLACK);
 		//g.fillRect(0, 0, width * tileSize, height * tileSize);
 	}
+	int[][] tempShape = new int[2][10];
 	public void drawElement(int x, int y, int frame, byte elementType){
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setXORMode(colors[elementType]);
 		x *= tileSize;
 		y *= tileSize;
 		int shape = shapes[elementType];
+System.out.println("Shape " + shape);
 		switch(shape){
 			case SHAPE_SQUARE:
 				g.fillRect(x, y, tileSize, tileSize);
@@ -47,7 +49,16 @@ public class VortexRenderer extends Renderer{
 				g.fillOval(x, y, tileSize, tileSize);
 			break;
 			default:
-				g.fillPolygon(shapePoints[shape][0], shapePoints[shape][1], shapePoints[shape][0].length);
+System.out.println("Tri");
+				int l = shapePoints[shape][0].length;
+				for(int i = 0; i < l; i++){
+					tempShape[0][i] = shapePoints[shape][0][i] + x;
+					tempShape[1][i] = shapePoints[shape][1][i] + y;
+					System.out.print("(" + tempShape[0][i] + ", " + tempShape[1][i] + "), ");
+				}
+				System.out.println("");
+				g.setColor(Color.black);
+				g.fillPolygon(tempShape[0], tempShape[1], l);
 			break;
 		}
 	}

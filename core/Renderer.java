@@ -47,11 +47,11 @@ public abstract class Renderer{
 		shapePoints[SHAPE_TRIANGLE][1] = new int[3];
 		//x
 		shapePoints[SHAPE_TRIANGLE][0][0] = 0;
-		shapePoints[SHAPE_TRIANGLE][0][0] = tileSize / 2;
-		shapePoints[SHAPE_TRIANGLE][0][0] = tileSize;
-		shapePoints[SHAPE_TRIANGLE][0][1] = tileSize;
-		shapePoints[SHAPE_TRIANGLE][0][1] = 0;
-		shapePoints[SHAPE_TRIANGLE][0][1] = tileSize;
+		shapePoints[SHAPE_TRIANGLE][0][1] = tileSize / 2;
+		shapePoints[SHAPE_TRIANGLE][0][2] = tileSize;
+		shapePoints[SHAPE_TRIANGLE][1][0] = tileSize;
+		shapePoints[SHAPE_TRIANGLE][1][1] = 0;
+		shapePoints[SHAPE_TRIANGLE][1][2] = tileSize;
 
 	}
 	public void effect(){
