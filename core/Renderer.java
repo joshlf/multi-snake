@@ -1,7 +1,7 @@
 package core;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
+import java.awt.image.*;
 import java.awt.Color;
 import java.awt.Font;
 
@@ -26,6 +26,7 @@ public abstract class Renderer{
 
 	//everything is buffered, the image buffer is then drawn to screen.
 	public BufferedImage buffer;
+	int[] imgInt;
 	public Graphics g;
 
 	public Renderer(int width, int height, int tileSize, Color[] colors, byte[] shapes, int elementsUsed){
@@ -33,6 +34,7 @@ public abstract class Renderer{
 		this.height = height;
 	    	this.tileSize = tileSize;
 		buffer = new BufferedImage(width * tileSize, height * tileSize, BufferedImage.TYPE_INT_RGB);
+		imgInt = ((DataBufferInt)buffer.getRaster().getDataBuffer()).getData();
 		g = buffer.getGraphics();
 		this.colors = colors;
 		this.shapes = shapes;
@@ -72,6 +74,34 @@ public abstract class Renderer{
 		}
 	}
 	public abstract void clear(int frame);
+	public void margin(int right, int top, int left, int bottom){
+		g.setPaintMode();
+		g.setColor(new Color(0,0,0,128));
+		g.fillRect(0, 0, width * tileSize, top * tileSize);//top
+		g.fillRect(0, top * tileSize, left * tileSize, (height - top - bottom) * tileSize);//left
+		g.fillRect(0, (height - top) * tileSize, width * tileSize, bottom * tileSize); //bottom
+		g.fillRect((width - right) * tileSize, top * tileSize, right * tileSize, (height - top - bottom) * tileSize); //right
+		/*
+		int sWidth = width * tileSize;
+		int sHeight = height * tileSize;
+		for(int x = 0; x <= 16; x++){
+			for(int y = 0; y < sHeight; y++){
+				int i = 20 - x;
+				int j = x + sWidth * y;	
+				imgInt[j] = 
+				((((imgInt[j] >> 16) * 4 / i)) << 16) | 				((((imgInt[j] & 0xff00) >> 8) * 4 / i) << 8) |
+				((imgInt[j] & 0xff) * 4 / i);
+				
+				i = 4 + x;
+				j = x + sWidth * y + sWidth - 17;
+				imgInt[j] = 
+				((((imgInt[j] >> 16) * 4 / i)) << 16) | 				((((imgInt[j] & 0xff00) >> 8) * 4 / i) << 8) |
+				((imgInt[j] & 0xff) * 4 / i);
+
+			}
+		}
+		*/
+	}
 	public abstract void drawElement(int x, int y, int frame, byte elementType);
 	int[][] tempShape = new int[2][10];
 	protected void drawShape(int x, int y, byte shape){

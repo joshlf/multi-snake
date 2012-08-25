@@ -7,10 +7,8 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public class VortexRenderer extends Renderer{
-	int[] imgInt;
 	public VortexRenderer(int width, int height, int tileSize, Color[] colors, byte[] shapes, int elementsUsed){
 		super(width, height, tileSize, colors, shapes, elementsUsed);
-		imgInt = ((DataBufferInt)buffer.getRaster().getDataBuffer()).getData();
 		initSine(256, 256 / 6);
 	}
 

@@ -143,6 +143,7 @@ public class SnakeMain {
 		}
 		
 		renderer.blitText(null, scoreStr);
+		renderer.margin(offsetX, offsetY, offsetX, offsetY);
 		GameFrame.render(renderer.buffer); //render to screen
 	}
 	
