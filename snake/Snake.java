@@ -145,10 +145,11 @@ public class Snake {
 	
 	public void render(Renderer renderer, int frameCount){
 		for(int i = 0; i < this.length; i++){
-			if (i == this.ptr)
-				renderer.drawElement(this.x[i], this.y[i], frameCount, (byte)(40 + this.idx));
-			else if (this.x[i] != -1)
-				renderer.drawElement(this.x[i], this.y[i], frameCount, (byte)(10 + this.idx));
+			// if (i == this.ptr)
+				// renderer.drawElement(this.x[i], this.y[i], frameCount, (byte)(40 + this.idx));
+			// else if (this.x[i] != -1)
+			if (this.x[i] != -1)
+				renderer.drawElement(this.x[i], this.y[i], frameCount, Map.SNAKE);
 		}
 	}
 }
