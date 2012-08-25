@@ -18,14 +18,14 @@ public class Map {
 		Map.tWidth = tWidth;
 		Map.tHeight = tHeight;
 		
-		tiles = new byte[width][height]
+		tiles = new byte[width][height];
 		initTiles();
 	}
 	
 	public static void MoveTo(int x, int y, Snake s) {
-		if tiles[x][y] != BLANK {
-			s.Collide(tiles[x][y])
-			SnakeMain.Collide(x, y, s.idx, tiles[x][y])
+		if (tiles[x][y] != BLANK) {
+			s.Collide(tiles[x][y]);
+			SnakeMain.Collide(x, y, s.idx, tiles[x][y]);
 		}
 	}
 	

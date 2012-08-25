@@ -44,7 +44,7 @@ public class Snake {
 	}
 	
 	public void Update() {
-		switch Main.controller.KeyPressed(this.idx) {
+		switch (Main.controller.getKeyPressed(this.idx)) {
 			case Main.controller.UP:
 			dx = 0;
 			dy = -1;
