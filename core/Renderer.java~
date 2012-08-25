@@ -22,7 +22,7 @@ public abstract class Renderer{
 
 	public abstract void clear();
 	public abstract void drawElement(int x, int y, byte elementType);
-	public void renderMap(byte[][] map){
+	public void mapToScreen(byte[][] map){
 		int xM = Math.min(map.length, width);
 		int yM = Math.min(map[0].length, height);
 		for(int x = 0; x < xM; x++)
