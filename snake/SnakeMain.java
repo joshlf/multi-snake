@@ -133,14 +133,15 @@ public class SnakeMain {
 			snake.render(renderer, frameCount);
 		}
 		renderer.renderMap(Map.tiles, frameCount, offsetX, offsetY);
+		renderer.margin(offsetX, offsetY, offsetX, offsetY, 128);
 		
-		// Render margin mask
-		for (int i = 0; i < offsetX + Map.width; i++) {
-			for (int j = 0; j < offsetY + Map.height; j++) {
-				renderer.drawElement(i, j, frameCount, Map.MARGIN);
-				// renderer.drawElement(this.x[i] + SnakeMain.offsetX, this.y[i] + SnakeMain.offsetY, frameCount, Map.SNAKE);
-			}
-		}
+		// // Render margin mask
+		// for (int i = 0; i < offsetX + Map.width; i++) {
+		// 	for (int j = 0; j < offsetY + Map.height; j++) {
+		// 		renderer.drawElement(i, j, frameCount, Map.MARGIN);
+		// 		// renderer.drawElement(this.x[i] + SnakeMain.offsetX, this.y[i] + SnakeMain.offsetY, frameCount, Map.SNAKE);
+		// 	}
+		// }
 		
 		String scoreStr = "";
 		
@@ -153,7 +154,6 @@ public class SnakeMain {
 		}
 		
 		renderer.blitText(null, scoreStr);
-		renderer.margin(offsetX, offsetY, offsetX, offsetY);
 		GameFrame.render(renderer.buffer); //render to screen
 	}
 	
