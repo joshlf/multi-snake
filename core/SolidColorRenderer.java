@@ -6,33 +6,20 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public class SolidColorRenderer extends Renderer{
-	public static final byte SQUARE = 0, CIRCLE = 1;
-	byte[] shapes;
-	Color[] colors;
-	int elementsUsed;
-	public SolidColorRenderer(int width, int height, int tileSize, int elementsUsed){
-		super(width, height, tileSize);
+	public SolidColorRenderer(int width, int height, int tileSize, Color[] colors, byte[] shapes, int elementsUsed){
+		super(width, height, tileSize, colors, shapes, elementsUsed);
 		shapes = new byte[127];
 		colors = new Color[127];
 		this.elementsUsed = elementsUsed;
-		randomizeColors();
+		randomize(127);
 	}
 
-	public void randomizeColors(){
-		Random rand = new Random();
-		for(int i = 0; i < elementsUsed; i++){
-			colors[i] = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
-		}
-	}
-
-	public void clear(){
-		if(frame % 4 == 0) randomizeColors();
+	public void clear(int frame){
+		if(frame % 4 == 0) randomize(127);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width * tileSize, height * tileSize);
 	}
-	int frame;
 	public void drawElement(int x, int y, int frame, byte elementType){
-		this.frame = frame;
 		//System.out.println("DRAWING");
 		g.setColor(colors[elementType]);
 		x *= tileSize;

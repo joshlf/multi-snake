@@ -7,38 +7,16 @@ import java.awt.Graphics;
 import java.util.Random;
 
 public class VortexRenderer extends Renderer{
-	public static final byte SQUARE = 0, CIRCLE = 1;
-	byte[] shapes;
-	Color[] colors;
-	int elementsUsed;
 	int[] imgInt;
-	public VortexRenderer(int width, int height, int tileSize, int elementsUsed){
-		super(width, height, tileSize);
-		shapes = new byte[127];
-		colors = new Color[127];
-		this.elementsUsed = elementsUsed;
+	public VortexRenderer(int width, int height, int tileSize, Color[] colors, byte[] shapes, int elementsUsed){
+		super(width, height, tileSize, colors, shapes, elementsUsed);
 		imgInt = ((DataBufferInt)buffer.getRaster().getDataBuffer()).getData();
-		randomizeColors();
 		initSine(256, 256 / 6);
 	}
 
-	public void randomizeColors(){
-		Random rand = new Random();
-		for(int i = 0; i < elementsUsed; i++){
-			colors[i] = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
-		}
-	}
-	public void effect(){
-		randomizeColors();
-	}
-
-	int frame = 0;
-	
 	int[][] coeffs = new int[][]{new int[]{1, 2, 3}, new int[]{4, 3, 2}, new int[]{3, 7, 5}, new int[]{11, 7, 13}, new int[]{17, 23, 19}};
 
-	public void clear(){
-		frame++;
-//System.out.println(frame++);
+	public void clear(int frame){
 		int xSize = width * tileSize;
 		int ySize = height * tileSize;
 		int[] c = new int[3];

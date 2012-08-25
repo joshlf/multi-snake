@@ -40,7 +40,7 @@ public class SnakeMain {
 		controller = new DirectionalController(2);
 		GameFrame.Init(width * tileWidth, height * tileWidth, controller);
 
-		renderer = new VortexRenderer(width, height, tileWidth, 127);
+		renderer = new VortexRenderer(width, height, tileWidth, null, null, 0);
 		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);
@@ -92,7 +92,7 @@ public class SnakeMain {
 	}
 
         public static void render(){
-		renderer.clear();
+		renderer.clear(frameCount);
 		for(Snake snake : snakes) {
 			snake.render(renderer, frameCount);
 		}
