@@ -56,7 +56,7 @@ public class SnakeMain {
 		shapes[Map.SNAKE] = Renderer.SHAPE_CIRCLE;
 		shapes[Map.FOOD] = Renderer.SHAPE_TRIANGLE;
 		
-		renderer = new VortexRenderer(width, height, tileWidth, colors, shapes, 0);
+		renderer = new VortexRenderer(width, height, tileWidth, colors, shapes, shapes.length);
 		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);
