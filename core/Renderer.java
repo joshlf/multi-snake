@@ -9,6 +9,8 @@ import java.util.Random;
 
 import snake.Map;
 
+import java.io.*;
+
 public abstract class Renderer{
 	//Shape/Color info
 	public static final Color COLOR_RANDOM = null;
@@ -95,12 +97,22 @@ public abstract class Renderer{
 			break;
 		}
 	}
-	public void renderMap(byte[][] map, int frame){
+/*
+	public void renderStream(InputStream in){
+		in = new DataInputStream(in);
+		try{
+			while(in.hasData()){
+				drawElement(in.readShort(), in.readShort(), in.readByte());
+			}		
+		}	
+	}
+*/
+	public void renderMap(byte[][] map, int frame, int offsetX, int offsetY){
 		int xM = Math.min(map.length, width);
 		int yM = Math.min(map[0].length, height);
 		for(int x = 0; x < xM; x++)
 			for(int y = 0; y < yM; y++)
-				if(map[x][y] > 0 && map[x][y] != Map.SNAKE) drawElement(x, y, frame, map[x][y]);
+				if(map[x][y] > 0 && map[x][y] != Map.SNAKE) drawElement(x + offsetX, y + offsetY, frame, map[x][y]);
 	}
 	//Color related items
 	public void setElements(Color[] colors, byte[] shapes){
