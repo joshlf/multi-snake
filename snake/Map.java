@@ -4,10 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Map {
-	public static final byte BLANK = 0, WALL = 1, FOOD = 2, SNAKE = 3, COLLISION = 4, SNAKE_BASE = 100;
-	// NUM_TYPES does not include COLLISION or SNAKE_BASE
-	// because you can't print one.
-	public static final byte NUM_TYPES = 4;
+	public static final byte BLANK = 0, WALL = 1, FOOD = 2, SNAKE = 3, MARGIN = 4, SNAKE_BASE = 100;
+	// NUM_TYPES does not include SNAKE_BASE
+	// because they're not printed
+	public static final byte NUM_TYPES = 5;
 	
 	static byte[][] tiles;
 	public static int width;
@@ -40,10 +40,6 @@ public class Map {
 	
 	public static void SetSnake(int x, int y, int idx) {
 		tiles[x][y] = (byte)(SNAKE_BASE + (byte)(idx));
-	}
-	
-	public static void SetCollision(int x, int y) {
-		tiles[x][y] = COLLISION;
 	}
 	
 	static void initTiles() {
