@@ -48,7 +48,7 @@ public class SnakeMain {
 		SnakeMain.snakeCount = snakeCount;
 		snakes = new Snake[snakeCount];
 		for (int i = 0; i < snakeCount; i++) {
-			snakes[i] = new Snake(i, i, 10, i);
+			snakes[i] = new Snake(i, i, 10, 10, i);
 		}
 		
 		FPS = 5;
