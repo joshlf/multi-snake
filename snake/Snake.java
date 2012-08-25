@@ -126,7 +126,6 @@ public class Snake {
 	}
 	
 	public void Collide(byte item) {
-		System.out.println("Collided with " + item + "!");
 		switch (item) {
 			case Map.FOOD:
 			this.eat();
