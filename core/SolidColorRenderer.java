@@ -29,6 +29,7 @@ public class SolidColorRenderer extends Renderer{
 		g.fillRect(0, 0, width * tileSize, height * tileSize);
 	}
 	public void drawElement(int x, int y, int frame, byte elementType){
+		System.out.println("DRAWING");
 		g.setColor(colors[elementType]);
 		x *= tileSize;
 		y *= tileSize;

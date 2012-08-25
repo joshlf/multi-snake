@@ -1,7 +1,9 @@
 import java.awt.Graphics;
 import java.util.Random;
 
+import core.DirectionalController;
 import core.*;
+
 public class SnakeMain {
 	public static DirectionalController controller;
 	public static Renderer renderer;
@@ -89,7 +91,8 @@ public class SnakeMain {
 		for(Snake snake : snakes) {
 			snake.render(renderer);
 		}
-		renderer.renderMap(Map.tiles, 1);
+		renderer.renderMap(Map.tiles, frameCount);
+		renderer.drawElement(4, 4, 1, (byte)(10));		
 		GameFrame.render(renderer.buffer);//render to screen
 	}
 	
