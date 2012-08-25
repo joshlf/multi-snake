@@ -113,6 +113,7 @@ public class SnakeMain {
 			snake.render(renderer, frameCount);
 		}
 		renderer.renderMap(Map.tiles, frameCount);
+		renderer.blitText(null, "STUFF")
 		GameFrame.render(renderer.buffer); //render to screen
 	}
 	
