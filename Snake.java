@@ -61,12 +61,12 @@ public class Snake {
 		int[] tmpX = new int[newLength];
 		int[] tmpY = new int[newLength];
 		
-		for (int i = addFoodLength; i < newLength; i++) {
-			tmpX[i] = this.x[(this.ptr + i - addFoodLength) % this.length];
-			tmpY[i] = this.y[(this.ptr + i - addFoodLength) % this.length];
+		for (int i = this.addFoodLength; i < newLength; i++) {
+			tmpX[i] = this.x[(this.ptr + i - this.addFoodLength) % this.length];
+			tmpY[i] = this.y[(this.ptr + i - this.addFoodLength) % this.length];
 		}
 		
-		for (int i = addFoodLength; i < newLength; i++) {
+		for (int i = this.addFoodLength; i < newLength; i++) {
 			this.x[i] = tmpX[i];
 			this.y[i] = tmpY[i];
 		}
@@ -77,10 +77,13 @@ public class Snake {
 		this.x[0] = this.x[newLength] + dx;
 		this.y[0] = this.y[newLength] + dy;
 		
-		for (int i = 1; i < addFoodLength; i++) {
+		for (int i = 1; i < this.addFoodLength; i++) {
 			this.x[i] = this.x[i - 1] + dx;
 			this.y[i] = this.y[i - 1] + dx;
 		}
+		
+		this.length = newLength
+		this.ptr = this.addFoodLength
 	}
 	
 	public void Collide(byte item) {
