@@ -98,4 +98,9 @@ public abstract class Renderer{
 	public static byte getRandomShape(){
 		return (byte)rand.nextInt(SHAPES);
 	}
+	
+	public void blitText(Color c, String text){
+		if(c != null) g.setColor(c);
+		g.drawString(text, 15, 15);
+	}
 }
