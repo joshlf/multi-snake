@@ -52,23 +52,19 @@ public class Snake {
 	}
 	
 	public void Update() {
-		switch (SnakeMain.controller.getKeyPressed(this.idx)) {
-			case DirectionalController.UP:
+		int dir = SnakeMain.controller.getKeyPressed(this.idx);
+		if (dir == DirectionalController.UP && dy != 1) {
 			dx = 0;
 			dy = -1;
-			break;
-			case DirectionalController.LEFT:
+		} else if (dir == DirectionalController.LEFT && dx != 1) {
 			dx = -1;
 			dy = 0;
-			break;
-			case DirectionalController.DOWN:
+		} else if (dir == DirectionalController.DOWN && dy != -1) {
 			dx = 0;
 			dy = 1;
-			break;
-			case DirectionalController.RIGHT:
+		} else if (dir == DirectionalController.RIGHT && dx != -1) {
 			dx = 1;
 			dy = 0;
-			break;
 		}
 		this.moveSnake();
 	}
@@ -77,12 +73,9 @@ public class Snake {
 		int oldPtr = this.ptr;
 		int oldX = this.x[oldPtr];
 		int oldY = this.y[oldPtr];
-		// System.out.println(oldPtr);
 		this.ptr = (this.ptr + 1) % this.length;
-		// System.out.println(this.ptr);
 		this.x[this.ptr] = (this.x[oldPtr] + dx + Map.width) % Map.width;
 		this.y[this.ptr] = (this.y[oldPtr] + dy + Map.height) % Map.height;
-		// System.out.println(this.ptr + " " + this.x[this.ptr] + " " + this.y[this.ptr]);
 		Map.MoveFromTo(oldX, oldY, this.x[this.ptr], this.y[this.ptr], this);
 	}
 	
@@ -101,20 +94,13 @@ public class Snake {
 			this.y[i] = tmpY[i];
 		}
 		
-		int dx = this.x[newLength - 1] - this.x[newLength];
-		int dy = this.y[newLength - 1] - this.y[newLength];
-		
-		this.x[0] = this.x[newLength] + dx;
-		this.y[0] = this.y[newLength] + dy;
-		
-		System.out.print("[ ");
-		for (int i = 1; i < this.addFoodLength; i++) {
-			this.x[i] = this.x[i - 1] + dx;
-			System.out.print(this.x[i] + " ");
-			this.y[i] = this.y[i - 1] + dx;
-			System.out.print(this.y[i] + " ");
+		// Assume that negative values won't fuck shit up.
+		// If it does, try impossibly large values.
+		// The idea here is that these are never rendered
+		// until this part of the area is written over.
+		for (int i = 0; i < this.addFoodLength; i++) {
+			this.x[i] = (this.y[i] = -1);
 		}
-		System.out.println("]");
 		
 		this.length = newLength;
 		this.ptr = this.addFoodLength;
