@@ -27,13 +27,14 @@ public class Snake {
 	private int startDY;
 	private int startLives;
 	
-	public Snake(int startX, int startY, int lives, int idx) {
+	public Snake(int startX, int startY, int addFoodLength, int lives, int idx) {
 		this.x = new int[MAX_LENGTH];
 		this.y = new int[MAX_LENGTH];
 		this.startX = startX;
 		this.startY = startY;
 		this.startLives = lives;
 		this.idx = idx;
+		this.addFoodLength = addFoodLength;
 		
 		init();
 	}
@@ -53,28 +54,22 @@ public class Snake {
 	public void Update() {
 		switch (SnakeMain.controller.getKeyPressed(this.idx)) {
 			case DirectionalController.UP:
-			System.out.println("UP");
 			dx = 0;
 			dy = -1;
 			break;
 			case DirectionalController.LEFT:
-			System.out.println("LEFT");
 			dx = -1;
 			dy = 0;
 			break;
 			case DirectionalController.DOWN:
-			System.out.println("DOWN");
 			dx = 0;
 			dy = 1;
 			break;
 			case DirectionalController.RIGHT:
-			System.out.println("RIGHT");
 			dx = 1;
 			dy = 0;
 			break;
 		}
-		System.out.println(this.length + ": " + this.x[this.ptr] + ", " + this.y[this.ptr]);
-		// System.out.println(this.x[this.ptr] + ", " + this.y[this.ptr]);
 		this.moveSnake();
 	}
 	
@@ -112,17 +107,20 @@ public class Snake {
 		this.x[0] = this.x[newLength] + dx;
 		this.y[0] = this.y[newLength] + dy;
 		
+		System.out.print("[ ");
 		for (int i = 1; i < this.addFoodLength; i++) {
 			this.x[i] = this.x[i - 1] + dx;
+			System.out.print(this.x[i] + " ");
 			this.y[i] = this.y[i - 1] + dx;
+			System.out.print(this.y[i] + " ");
 		}
+		System.out.println("]");
 		
 		this.length = newLength;
 		this.ptr = this.addFoodLength;
 	}
 	
 	public void Collide(byte item) {
-		System.out.println(item);
 		switch (item) {
 			case Map.FOOD:
 			this.eat();
