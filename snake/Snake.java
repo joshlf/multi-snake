@@ -39,6 +39,7 @@ public class Snake {
 		this.startLives = lives;
 		this.lives = this.startLives;
 		this.idx = idx;
+		this.score = 0;
 		this.addFoodLength = addFoodLength;
 		this.startMoveRate = moveRate;
 		this.dead = false;
@@ -52,7 +53,6 @@ public class Snake {
 		this.moveRate = this.startMoveRate;
 		this.length = 1;
 		this.ptr = length - 1;
-		this.score = 0;
 
 		for (int i = 0; i < this.length; i++) {
 			Map.SetSnake(this.x[i], this.y[i], this.idx);
