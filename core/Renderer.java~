@@ -21,12 +21,12 @@ public abstract class Renderer{
 	}
 
 	public abstract void clear();
-	public abstract void drawElement(int x, int y, byte elementType);
-	public void renderMap(byte[][] map){
+	public abstract void drawElement(int x, int y, int frame, byte elementType);
+	public void renderMap(byte[][] map, int frame){
 		int xM = Math.min(map.length, width);
 		int yM = Math.min(map[0].length, height);
 		for(int x = 0; x < xM; x++)
 			for(int y = 0; y < yM; y++)
-				drawElement(x, y, map[x][y]);
+				drawElement(x, y, frame, map[x][y]);
 	}
 }

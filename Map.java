@@ -8,15 +8,9 @@ public class Map {
 	public static int width;
 	public static int height;
 	
-	// Tile size
-	static int tWidth;
-	static int tHeight;
-	
-	public static void Init(int width, int height, int tWidth, int tHeight) {
+	public static void Init(int width, int height) {
 		Map.width = width;
 		Map.height = height;
-		Map.tWidth = tWidth;
-		Map.tHeight = tHeight;
 		
 		tiles = new byte[width][height];
 		initTiles();
