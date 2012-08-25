@@ -1,7 +1,7 @@
 package core;
 import java.awt.event.*;
 public class DirectionalController implements KeyListener{
-    public static final int LEFT = 0, UP = 1, RIGHT = 2, DOWN = 3, NONE = 4;
+    public static final int RIGHT = 0, UP = 1, LEFT = 2, DOWN = 3, NONE = 4;
     //keyMappings follows [player][key] indexing.
     public static int[][] keyMappings = new int[][] {
 	new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN}, 
