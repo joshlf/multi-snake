@@ -11,8 +11,8 @@ import core.*;
 public class SnakeMain {
 	public static DirectionalController controller;
 	public static Renderer renderer;
-	public static offsetX;
-	public static offsetY;
+	public static int offsetX;
+	public static int offsetY;
 
 	static int FPS, TPF;
 	
@@ -31,7 +31,7 @@ public class SnakeMain {
 			}
 		}
 		
-		Init(mapWidth, mapHeight, 10, 10, 2);
+		Init(mapWidth, mapHeight, 3, 3, 2);
 		while (true) {
 			initLevel();
 			run();
@@ -39,9 +39,9 @@ public class SnakeMain {
 	}
 	
 	
-	public static void Init(int width, int height, int offX, int offY, int snakeCount) {
-		SnakeMain.offsetX = offX;
-		SnakeMain.offsetY = offY;
+	public static void Init(int width, int height, int xMarg, int yMarg, int snakeCount) {
+		SnakeMain.offsetX = xMarg;
+		SnakeMain.offsetY = yMarg;
 		
 		int tileWidth = 8;
 		int[][] controls = new int[snakeCount][4];
@@ -58,7 +58,7 @@ public class SnakeMain {
 		// 		new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S},
 		// 		new int[]{KeyEvent.VK_L, KeyEvent.VK_I, KeyEvent.VK_J, KeyEvent.VK_K}
 		// 	    });
-		GameFrame.Init(width * tileWidth, height * tileWidth, controller);
+		GameFrame.Init((width + xMarg * 2) * tileWidth, (height + yMarg * 2) * tileWidth, controller);
 
 		byte[] shapes = new byte[Map.NUM_TYPES];
 		Color[] colors = new Color[Map.NUM_TYPES];
@@ -74,7 +74,7 @@ public class SnakeMain {
 		shapes[Map.SNAKE] = Renderer.SHAPE_SQUARE;
 		shapes[Map.FOOD] = Renderer.SHAPE_SQUARE;
 		
-		renderer = new StarRenderer(width, height, tileWidth, colors, shapes, shapes.length);
+		renderer = new StarRenderer(width + xMarg * 2, height + yMarg * 2, tileWidth, colors, shapes, shapes.length);
 		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);
