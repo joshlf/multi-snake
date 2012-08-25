@@ -9,11 +9,13 @@ import java.util.Random;
 import snake.Map;
 
 public abstract class Renderer{
-	//Info used by most/all renderers
-	public static final byte SQUARE = 0, CIRCLE = 1;
+	//Shape/Color info
+	public static final Color COLOR_RANDOM = null;
+	public static final byte SHAPE_RANDOM = -1, SHAPE_SQUARE = 0, SHAPE_CIRCLE = 1, SHAPE_TRIANGLE = 2, SHAPE_STAR = 3, SHAPES = 3;
 	byte[] shapes;
 	Color[] colors;
 	int elementsUsed;
+	int[][][] shapePoints;
 
 	//vital renderer info
 	int width, height;
@@ -35,20 +37,35 @@ public abstract class Renderer{
 		if(elementsUsed == 0){
 			randomize(127);
 		}
+		for(int i = 0; i < elementsUsed; i++){
+			if(colors[i] == null) colors[i] = getRandomColor();
+			if(shapes[i] == SHAPE_RANDOM) shapes[i] = getRandomShape();
+		}
+		//initialize shapes.
+		shapePoints = new int[4][2][];
+		shapePoints[SHAPE_TRIANGLE][0] = new int[3];
+		shapePoints[SHAPE_TRIANGLE][1] = new int[3];
+		//x
+		shapePoints[SHAPE_TRIANGLE][0][0] = 0;
+		shapePoints[SHAPE_TRIANGLE][0][0] = tileSize / 2;
+		shapePoints[SHAPE_TRIANGLE][0][0] = tileSize;
+		shapePoints[SHAPE_TRIANGLE][0][1] = tileSize;
+		shapePoints[SHAPE_TRIANGLE][0][1] = 0;
+		shapePoints[SHAPE_TRIANGLE][0][1] = tileSize;
+
 	}
 	public void effect(){
 		randomize(127);
 	}
 	public void randomize(int elementsUsed){
-		Random rand = new Random();
 		if(elementsUsed > this.elementsUsed){
 			colors = new Color[elementsUsed];
 			shapes = new byte[elementsUsed];
 		}
 		//else we can use the existing buffers.
 		for(int i = 0; i < elementsUsed; i++){
-			colors[i] = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
-			shapes[i] = (byte)rand.nextInt(2);
+			colors[i] = getRandomColor();
+			shapes[i] = getRandomShape();
 		}
 	}
 	public abstract void clear(int frame);
@@ -73,5 +90,12 @@ public abstract class Renderer{
 	public void setShape(Color color, int index){
 		if(index < elementsUsed) colors[index] = color;
 		else System.err.printf("ERROR: Shape index %d out of bounds (size %d).\n", index, elementsUsed);
+	}
+	public static Random rand = new Random();
+	public static Color getRandomColor(){
+		return new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
+	}
+	public static byte getRandomShape(){
+		return (byte)rand.nextInt(SHAPES);
 	}
 }

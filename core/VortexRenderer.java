@@ -38,12 +38,16 @@ public class VortexRenderer extends Renderer{
 		g2.setXORMode(colors[elementType]);
 		x *= tileSize;
 		y *= tileSize;
-		switch(shapes[elementType]){
-			case SQUARE:
+		int shape = shapes[elementType];
+		switch(shape){
+			case SHAPE_SQUARE:
 				g.fillRect(x, y, tileSize, tileSize);
 			break;
-			case CIRCLE:
+			case SHAPE_CIRCLE:
 				g.fillOval(x, y, tileSize, tileSize);
+			break;
+			default:
+				g.fillPolygon(shapePoints[shape][0], shapePoints[shape][1], shapePoints[shape][0].length);
 			break;
 		}
 	}

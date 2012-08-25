@@ -1,7 +1,9 @@
 package snake;
 
 import java.awt.Graphics;
+import java.awt.Color;
 import java.util.Random;
+
 
 import core.*;
 
@@ -54,7 +56,7 @@ public class SnakeMain {
 		shapes[Map.SNAKE] = Renderer.SHAPE_CIRCLE;
 		shapes[Map.FOOD] = Renderer.SHAPE_TRIANGLE;
 		
-		renderer = new StarRenderer(width, height, tileWidth, colors, shapes, 0);
+		renderer = new VortexRenderer(width, height, tileWidth, colors, shapes, 0);
 		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);
