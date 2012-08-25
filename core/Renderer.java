@@ -23,6 +23,7 @@ public abstract class Renderer{
 	}
 
 	public abstract void clear();
+	public abstract void effect();
 	public abstract void drawElement(int x, int y, int frame, byte elementType);
 	public void renderMap(byte[][] map, int frame){
 		int xM = Math.min(map.length, width);

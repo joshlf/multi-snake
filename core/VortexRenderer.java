@@ -27,16 +27,29 @@ public class VortexRenderer extends Renderer{
 			colors[i] = new Color(rand.nextInt(256), rand.nextInt(256), rand.nextInt(256));
 		}
 	}
+	public void effect(){
+		randomizeColors();
+	}
 
 	int frame = 0;
+	
+	int[][] coeffs = new int[][]{new int[]{1, 2, 3}, new int[]{4, 3, 2}, new int[]{3, 7, 5}, new int[]{11, 7, 13}, new int[]{17, 23, 19}};
+
 	public void clear(){
 		frame++;
 //System.out.println(frame++);
 		int xSize = width * tileSize;
 		int ySize = height * tileSize;
+		int[] c = new int[3];
+		float constant = (float)(2 * Math.PI / width);
 		for(int x = 0; x < xSize; x++){
 			for(int y = 0; y < ySize; y++){
-				imgInt[x + y * xSize] = (x + frame) % 0x100 + (y + frame) * 0x100 % 0x10000 + (x + y + frame) % 255 * 0x10000;
+				c[0] = c[1] = c[2] = 128;
+
+				for(int i = 0; i < coeffs.length; i++){
+					c[i / 2] += (int)(64 * sine(constant * x * coeffs[i][0]) + sine(constant * y * coeffs[i][1]) + sine(constant * frame * coeffs[i][2])); 
+				}
+				imgInt[x + y * xSize] = c[0] << 16 | c[1] << 8 | c[2];
 			}
 		}
 		//g.setColor(Color.BLACK);
@@ -56,4 +69,19 @@ public class VortexRenderer extends Renderer{
 			break;
 		}
 	}
+public static final float B = (float)(4/Math.PI), C = (float)(-4/(Math.PI*Math.PI));
+public static float sine(float x)
+{
+    float y = B * x + C * x * Math.abs(x);
+
+/*    #ifdef EXTRA_PRECISION
+    //  const float Q = 0.775;
+        const float P = 0.225;
+
+        y = P * (y * abs(y) - y) + y;   // Q * y + P * y * abs(y)
+    #endif
+*/
+    return y;
+}
+
 }
