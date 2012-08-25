@@ -4,6 +4,13 @@ import java.util.Random;
 import core.*;
 public class SnakeMain {
 	public static DirectionalController controller;
+	public static Renderer renderer;
+
+	static int FPS, TPF;
+	
+	public static Snake[] snakes;
+	public static int snakeCount;
+	private static boolean running = true;
 	public static void main(String[] args) {
 		int mapWidth = 100;
 		int mapHeight = 75;
@@ -23,17 +30,15 @@ public class SnakeMain {
 		}
 	}
 	
-	static int FPS, TPF;
-	
-	public static Snake[] snakes;
-	public static int snakeCount;
-	private static boolean running = true;
 	
 	public static void Init(int width, int height, int snakeCount) {
 		int tileWidth = 8;
 		
 		controller = new DirectionalController(2);
 		GameFrame.Init(width, height, controller);
+
+		renderer = new Renderer(width, height, GameFrame.frameG);
+
 		Map.Init(width, height, 2, 2);
 		
 		SnakeMain.snakeCount = snakeCount;
@@ -66,7 +71,7 @@ public class SnakeMain {
 			t1 = System.currentTimeMillis();
 			long timePassed = t1 - t0;
 			t0 = t1;
-			if (timePassed < TMPF) {
+			if (timePassed < TPF) {
 				try {
 					Thread.sleep(TPF - timePassed);
 				} catch (Exception e) {
@@ -77,12 +82,21 @@ public class SnakeMain {
 			}
 		}
 	}
+
+        public static void render(){
+		renderer.clear();
+		for(Snake snake : snakes) {
+			snake.render(renderer);
+		}
+		renderer.mapToScreen(map.tiles);
+		GameFrame.render(renderer.buffer);
+	}
 	
 	public static void Collide(int x, int y, int idx, byte item) {
 		switch (item) {
-			case WALL:
+			case Map.WALL:
 			snakes[idx].Die();
-			case SNAKE:
+			case Map.SNAKE:
 			snakes[idx].Die();
 		}
 	}

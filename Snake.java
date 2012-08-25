@@ -1,6 +1,7 @@
 import java.util.Random;
 import java.awt.Graphics;
 
+import core.DirectionalController;
 public class Snake {
 	private static final int MAX_LENGTH = 1600;
 	
@@ -32,7 +33,7 @@ public class Snake {
 		this.startLives = lives;
 		this.idx = idx;
 		
-		this.Init();
+		init();
 	}
 	
 	private void init() {
@@ -44,20 +45,20 @@ public class Snake {
 	}
 	
 	public void Update() {
-		switch (Main.controller.getKeyPressed(this.idx)) {
-			case Main.controller.UP:
+		switch SnakeMain.controller.getKeyPressed(this.idx) {
+			case DirectionalController.UP:
 			dx = 0;
 			dy = -1;
 			break;
-			case Main.controller.LEFT:
+			case DirectionalController.LEFT:
 			dx = -1;
 			dy = 0;
 			break;
-			case Main.controller.DOWN:
+			case DirectionalController.DOWN:
 			dx = 0;
 			dy = 1;
 			break;
-			case Main.controller.RIGHT:
+			case DirectionalController.RIGHT:
 			dx = 1;
 			dy = 0;
 			break;
@@ -114,5 +115,8 @@ public class Snake {
 	public void Die() {
 		this.lives--;
 		this.init();
+	}
+	public void render(Renderer renderer){
+		
 	}
 }
