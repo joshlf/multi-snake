@@ -52,6 +52,7 @@ public class Snake {
 	}
 	
 	public void Update() {
+		System.out.println("Update!");
 		int dir = SnakeMain.controller.getKeyPressed(this.idx);
 		if (dir == DirectionalController.UP && dy != 1) {
 			dx = 0;
@@ -121,16 +122,17 @@ public class Snake {
 	}
 	
 	public void Die() {
-		for (int i = this.ptr; i != this.length && this.x[i] != -1; i = (i + this.length - 1) % this.length) {
+		for (int i = this.ptr; i != this.ptr && this.x[i] != -1; i = (i + this.length - 1) % this.length) {
 			Map.Remove(this.x[i], this.y[i]);
 		}
 		
 		this.lives--;
 		this.init();
 	}
+	
 	public void render(Renderer renderer, int frameCount){
 		for(int i = 0; i < x.length; i++){
-					renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
-				}
+			renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
+		}
 	}
 }
