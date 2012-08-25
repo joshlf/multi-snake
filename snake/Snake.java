@@ -34,6 +34,7 @@ public class Snake {
 		this.startY = startY;
 		this.startLives = lives;
 		this.idx = idx;
+		this.addFoodLength = 10;
 		
 		init();
 	}

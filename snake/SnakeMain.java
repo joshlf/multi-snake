@@ -107,7 +107,7 @@ public class SnakeMain {
 			case Map.SNAKE:
 			snakes[idx].Die();
 			case Map.FOOD:
-			
+			Map.placeFood(x, y);
 		}
 	}
 }
