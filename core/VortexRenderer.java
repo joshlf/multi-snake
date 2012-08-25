@@ -19,6 +19,7 @@ public class VortexRenderer extends Renderer{
 		this.elementsUsed = elementsUsed;
 		imgInt = ((DataBufferInt)buffer.getRaster().getDataBuffer()).getData();
 		randomizeColors();
+		initSine(256, 256 / 6);
 	}
 
 	public void randomizeColors(){
@@ -41,13 +42,12 @@ public class VortexRenderer extends Renderer{
 		int xSize = width * tileSize;
 		int ySize = height * tileSize;
 		int[] c = new int[3];
-		float constant = (float)(2 * Math.PI / width);
 		for(int x = 0; x < xSize; x++){
 			for(int y = 0; y < ySize; y++){
 				c[0] = c[1] = c[2] = 128;
 
 				for(int i = 0; i < coeffs.length; i++){
-					c[i / 2] += (int)(64 * sine(constant * x * coeffs[i][0]) + sine(constant * y * coeffs[i][1]) + sine(constant * frame * coeffs[i][2])); 
+					c[i / 2] += (int)(intSine(x * coeffs[i][0]) + intSine(y * coeffs[i][1]) + intSine(frame * coeffs[i][2])); 
 				}
 				imgInt[x + y * xSize] = c[0] << 16 | c[1] << 8 | c[2];
 			}
@@ -84,4 +84,18 @@ public static float sine(float x)
     return y;
 }
 
+	public int[] sVals;
+	public int range;
+	public int intSine(int in){
+		return sVals[in % range];
+	}
+	public void initSine(int range, int domain){
+		sVals = new int[range];
+		domain /= 2;
+		this.range = range;
+		float constant = (float)(2 * Math.PI / range);
+		for(int i = 0; i < range; i++){
+			sVals[i] = domain + (int)(Math.sin(i * constant) * domain);
+		}
+	}
 }
