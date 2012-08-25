@@ -108,6 +108,7 @@ public class SnakeMain {
 			case Map.SNAKE:
 			snakes[idx].Die();
 			case Map.FOOD:
+			snakes[idx].moveRate += 0.1f;
 			Map.placeFood(x, y);
 		}
 	}
