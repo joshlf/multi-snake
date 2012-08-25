@@ -89,7 +89,7 @@ public class SnakeMain {
 		for(Snake snake : snakes) {
 			snake.render(renderer);
 		}
-		renderer.renderMap(Map.tiles);
+		renderer.renderMap(Map.tiles, 1);
 		GameFrame.render(renderer.buffer);//render to screen
 	}
 	

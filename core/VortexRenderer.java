@@ -10,11 +10,13 @@ public class SolidColorRenderer extends Renderer{
 	byte[] shapes;
 	Color[] colors;
 	int elementsUsed;
+	int[] imgInt;
 	public SolidColorRenderer(int width, int height, int tileSize, int elementsUsed){
 		super(width, height, tileSize);
 		shapes = new byte[127];
 		colors = new Color[127];
 		this.elementsUsed = elementsUsed;
+		imgInt = 
 	}
 
 	public void randomizeColors(){
@@ -25,11 +27,13 @@ public class SolidColorRenderer extends Renderer{
 	}
 
 	public void clear(){
+		
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width * tileSize, height * tileSize);
 	}
-	public void drawElement(int x, int y, int frame, byte elementType){
-		g.setColor(colors[elementType]);
+	public void drawElement(int x, int y, frame, byte elementType){
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setXORMODE(colors[elementType]);
 		x *= tileSize;
 		y *= tileSize;
 		switch(shapes[elementType]){

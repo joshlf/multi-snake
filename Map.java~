@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Map {
-	public static final byte BLANK = 0, WALL = 1, FOOD = 2, SNAKE = 200;
+	public static final byte BLANK = 0, WALL = 1, FOOD = 2, SNAKE = 100;
 	
 	static byte[][] tiles;
 	public static int width;
