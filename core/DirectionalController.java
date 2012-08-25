@@ -9,21 +9,19 @@ public class DirectionalController implements KeyListener{
 	new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN}, 
 	new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S}
     };
-    public boolean[] downs = new boolean[keyMappings.length];
+    public int QUEUESIZE = 16;
     public int players;
-    public int[] keys;
+    public int[][] keyCues;
+    public int[] keyCuePos;
 
     public DirectionalController(int players){
 	this.players = players;
-	keys = new int[players];
+	keyCuePos = new int[players];
+	keyCues = new int[players][QUEUESIZE];
     }
 //key events
     public void keyReset()
     {
-        for(int i = 0; i < downs.length; i++) {
-            downs[i] = false;
-	    keys[i] = NONE;
-        }
     }
     /** Handle the key typed event from the text field. */
     public void keyTyped(KeyEvent e)
@@ -39,11 +37,10 @@ public class DirectionalController implements KeyListener{
         for(int i = 0; i < keyMappings.length; i++) {
             for(int j = 0; j < keyMappings[i].length; j++) {
                 if(key == keyMappings[i][j]) {
-                    if (!downs[i]) {
-			//System.out.println("Direction " + j);
-                        downs[i] = true;//downs[i] = 1;
-                        keys[i] = j;
-                    }
+		    if(keyCuePos[i] >= QUEUESIZE)
+			System.out.println("Please stop pressing buttons.");
+                    else 
+			keyCues[i][keyCuePos[i]++] = j;
                     return;
                 }
             }
@@ -63,6 +60,11 @@ public class DirectionalController implements KeyListener{
     }
 
     public int getKeyPressed(int index){
-	return keys[index];
+	keyCuePos[index]--;
+	if(keyCuePos[index] < 0){
+		keyCuePos[index] = 0;
+		return NONE;
+	}
+	return keyCues[index][keyCuePos[index]];
     }
 }

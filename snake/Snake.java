@@ -56,20 +56,9 @@ public class Snake {
 	int[] cuedKeys = new int[16];
 	int keyCuePos;
 	public void Update() {
-		int dir = SnakeMain.controller.getKeyPressed(this.idx);
 		moveCtr += moveRate;
-		if(dir != DirectionalController.NONE){
-			if(keyCuePos < cuedKeys.length)
-			{
-				keyCuePos++;
-				
-				cuedKeys[keyCuePos] = dir;
-			}
-			else
-				System.out.println("Stop pressing keys!");
-		}
-		dir = DirectionalController.NONE;
 		while(moveCtr > 1){
+			int dir = SnakeMain.controller.getKeyPressed(this.idx);
 			moveCtr --;
 			if(keyCuePos >= 0){
 				dir = cuedKeys[keyCuePos];
@@ -108,7 +97,7 @@ public class Snake {
 	}	
 	private void eat() {
 		grow(4);
-		moveRate += .1f;
+		moveRate += .25f;
 	}
 	private void grow(int length){
 		int newLength = this.length + addFoodLength;
