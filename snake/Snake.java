@@ -53,17 +53,12 @@ public class Snake {
 	
 	float moveRate = .5f;
 	float moveCtr;
-	int[] cuedKeys = new int[16];
-	int keyCuePos;
+	
 	public void Update() {
 		moveCtr += moveRate;
 		while(moveCtr > 1){
 			int dir = SnakeMain.controller.getKeyPressed(this.idx);
 			moveCtr --;
-			if(keyCuePos >= 0){
-				dir = cuedKeys[keyCuePos];
-				keyCuePos--;
-			}
 			if (dir == DirectionalController.UP && dy != 1) {
 				dx = 0;
 				dy = -1;
@@ -94,22 +89,24 @@ public class Snake {
 		this.y[this.ptr] = (this.y[oldPtr] + dy + Map.height) % Map.height;
 		
 		Map.MoveFromTo(oldX, oldY, this.x[this.ptr], this.y[this.ptr], this);
-	}	
-	private void eat() {
-		grow(4);
-		moveRate += .25f;
 	}
-	private void grow(int length){
+	
+	private void eat() {
+		grow(this.addFoodLength);
+		this.moveRate += 0.06125f;
+	}
+	
+	private void grow(int addFoodLength){
 		int newLength = this.length + addFoodLength;
 		int[] tmpX = new int[newLength];
 		int[] tmpY = new int[newLength];
 		
-		for (int i = this.addFoodLength; i < newLength; i++) {
-			tmpX[i] = this.x[(this.ptr + i - this.addFoodLength) % this.length];
-			tmpY[i] = this.y[(this.ptr + i - this.addFoodLength) % this.length];
+		for (int i = addFoodLength; i < newLength; i++) {
+			tmpX[i] = this.x[(this.ptr + i - addFoodLength) % this.length];
+			tmpY[i] = this.y[(this.ptr + i - addFoodLength) % this.length];
 		}
 		
-		for (int i = this.addFoodLength; i < newLength; i++) {
+		for (int i = addFoodLength; i < newLength; i++) {
 			this.x[i] = tmpX[i];
 			this.y[i] = tmpY[i];
 		}
@@ -118,13 +115,14 @@ public class Snake {
 		// If it does, try impossibly large values.
 		// The idea here is that these are never rendered
 		// until this part of the area is written over.
-		for (int i = 0; i < this.addFoodLength; i++) {
+		for (int i = 0; i < addFoodLength; i++) {
 			this.x[i] = (this.y[i] = -1);
 		}
 		
 		this.length = newLength;
-		this.ptr = this.addFoodLength;
+		this.ptr = addFoodLength;
 	}
+	
 	public void Collide(byte item) {
 		System.out.println("Collided with " + item + "!");
 		switch (item) {
