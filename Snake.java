@@ -17,31 +17,44 @@ public class Snake {
 	private int dx, dy;
 	private int addFoodLength;
 	
+	private int startX;
+	private int startY;
+	private int startLength;
+	private int startDX;
+	private int startDY;
+	private int startLives;
+	
 	public Snake(int startX, int startY, int lives, int idx) {
 		this.x = new int[MAX_LENGTH];
 		this.y = new int[MAX_LENGTH];
-		this.x[0] = startX;
-		this.y[0] = startY;
+		this.startX = startX;
+		this.startY = startY;
+		this.startLives = lives;
+		this.idx = idx;
+		
+		this.Init();
+	}
+	
+	private void init() {
+		this.x[0] = this.startX;
+		this.x[0] = this.startY;
 		this.length = 1;
 		this.ptr = length - 1;
-		
-		this.idx = idx;
-		this.lives = lives;
 		this.score = 0;
 	}
 	
 	public void Update() {
-		switch SnakeFrame.keyPressed(this.idx) {
-			case SnakeFrame.UP:
+		switch Main.controller.KeyPressed(this.idx) {
+			case Main.controller.UP:
 			dx = 0;
 			dy = -1;
-			case SnakeFrame.LEFT:
+			case Main.controller.LEFT:
 			dx = -1;
 			dy = 0;
-			case SnakeFrame.DOWN:
+			case Main.controller.DOWN:
 			dx = 0;
 			dy = 1;
-			case SnakeFrame.RIGHT:
+			case Main.controller.RIGHT:
 			dx = 1;
 			dy = 0;
 		}
@@ -91,5 +104,10 @@ public class Snake {
 			case Map.FOOD:
 			this.eat();
 		}
+	}
+	
+	public void Die() {
+		this.lives--;
+		this.init();
 	}
 }
