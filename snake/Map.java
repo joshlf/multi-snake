@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Map {
-	public static final byte BLANK = 0, WALL = 1, FOOD = 2, SNAKE = 3;
+	public static final byte BLANK = 0, WALL = 1, FOOD = 2, SNAKE = 3, COLLISION = 4, SNAKE_BASE = 100;
+	// NUM_TYPES does not include COLLISION or SNAKE_BASE
+	// because you can't print one.
 	public static final byte NUM_TYPES = 4;
 	
 	static byte[][] tiles;
@@ -28,7 +30,7 @@ public class Map {
 			s.Collide(tiles[x1][y1]);
 			SnakeMain.Collide(x1, y1, s.idx, tiles[x1][y1]);
 		} else {
-			tiles[x1][y1] = SNAKE;
+			tiles[x1][y1] = (byte)(SNAKE_BASE + (byte)(s.idx));
 		}
 	}
 	
@@ -36,8 +38,12 @@ public class Map {
 		tiles[x][y] = BLANK;
 	}
 	
-	public static void SetSnake(int x, int y) {
-		tiles[x][y] = SNAKE;
+	public static void SetSnake(int x, int y, int idx) {
+		tiles[x][y] = (byte)(SNAKE_BASE + (byte)(idx));
+	}
+	
+	public static void SetCollision(int x, int y) {
+		tiles[x][y] = COLLISION;
 	}
 	
 	static void initTiles() {

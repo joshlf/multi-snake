@@ -2,6 +2,7 @@ package snake;
 
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.event.*;
 import java.util.Random;
 
 
@@ -10,6 +11,8 @@ import core.*;
 public class SnakeMain {
 	public static DirectionalController controller;
 	public static Renderer renderer;
+	public static offsetX;
+	public static offsetY;
 
 	static int FPS, TPF;
 	
@@ -28,7 +31,7 @@ public class SnakeMain {
 			}
 		}
 		
-		Init(mapWidth, mapHeight, 2);
+		Init(mapWidth, mapHeight, 10, 10, 2);
 		while (true) {
 			initLevel();
 			run();
@@ -36,10 +39,25 @@ public class SnakeMain {
 	}
 	
 	
-	public static void Init(int width, int height, int snakeCount) {
-		int tileWidth = 8;
+	public static void Init(int width, int height, int offX, int offY, int snakeCount) {
+		SnakeMain.offsetX = offX;
+		SnakeMain.offsetY = offY;
 		
-		controller = new DirectionalController(2);
+		int tileWidth = 8;
+		int[][] controls = new int[snakeCount][4];
+		
+		controls[0] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN};
+		if (snakeCount > 1)
+			controls[1] = new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S};
+		if (snakeCount > 2)
+			controls[2] = new int[]{KeyEvent.VK_L, KeyEvent.VK_I, KeyEvent.VK_J, KeyEvent.VK_K};
+		
+		controller = new DirectionalController(controls);
+		// controller = new DirectionalController(new int[][] {
+		// 		new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN}, 
+		// 		new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S},
+		// 		new int[]{KeyEvent.VK_L, KeyEvent.VK_I, KeyEvent.VK_J, KeyEvent.VK_K}
+		// 	    });
 		GameFrame.Init(width * tileWidth, height * tileWidth, controller);
 
 		byte[] shapes = new byte[Map.NUM_TYPES];
@@ -53,10 +71,10 @@ public class SnakeMain {
 		}
 		
 		shapes[Map.WALL] = Renderer.SHAPE_SQUARE;
-		shapes[Map.SNAKE] = Renderer.SHAPE_CIRCLE;
-		shapes[Map.FOOD] = Renderer.SHAPE_TRIANGLE;
+		shapes[Map.SNAKE] = Renderer.SHAPE_SQUARE;
+		shapes[Map.FOOD] = Renderer.SHAPE_SQUARE;
 		
-		renderer = new VortexRenderer(width, height, tileWidth, colors, shapes, shapes.length);
+		renderer = new StarRenderer(width, height, tileWidth, colors, shapes, shapes.length);
 		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);
@@ -107,7 +125,7 @@ public class SnakeMain {
 		}
 	}
 
-        public static void render(){
+	public static void render(){
 		renderer.clear(frameCount);
 		for(Snake snake : snakes) {
 			snake.render(renderer, frameCount);
@@ -117,7 +135,11 @@ public class SnakeMain {
 		String scoreStr = "";
 		
 		for (int i = 0; i < snakes.length; i++) {
-			scoreStr += "P" + i + ": " + snakes[i].score + " ";
+			scoreStr += "P" + i + ": " + snakes[i].score + "/";
+			if (snakes[i].dead)
+				scoreStr += "X ";
+			else
+				scoreStr += snakes[i].lives + " ";
 		}
 		
 		renderer.blitText(null, scoreStr);
@@ -125,18 +147,18 @@ public class SnakeMain {
 	}
 	
 	public static void Collide(int x, int y, int idx, byte item) {
-		switch (item) {
-			case Map.WALL:
+		if (item == Map.WALL) {
 			snakes[idx].Die();
-			break;
-			case Map.SNAKE:
-			snakes[idx].Die();
-			break;
-			case Map.FOOD:
+		} else if (item == Map.FOOD) {
 			Map.placeFood(x, y);
-			break;
+		} else if (item >= Map.SNAKE_BASE) {
+			snakes[idx].Die();
+			int other = item - Map.SNAKE_BASE;
+			if (snakes[other].x[0] == x && snakes[other].y[0] == y)
+				snakes[other].Die();
 		}
 	}
+	
 	//clean up and kill the game
 	public static void kill(){
 		System.exit(0);
