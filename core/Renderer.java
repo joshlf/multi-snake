@@ -100,7 +100,7 @@ public abstract class Renderer{
 		int yM = Math.min(map[0].length, height);
 		for(int x = 0; x < xM; x++)
 			for(int y = 0; y < yM; y++)
-				if(map[x][y] > 0 && map[x][y] != Map.SNAKE) drawElement(x, y, frame, map[x][y]);
+				if(map[x][y] > 0 && map[x][y] < Map.SNAKE_BASE) drawElement(x, y, frame, map[x][y]);
 	}
 	//Color related items
 	public void setElements(Color[] colors, byte[] shapes){

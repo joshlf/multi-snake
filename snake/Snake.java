@@ -11,10 +11,11 @@ public class Snake {
 	public int score;
 	public int idx;
 	public int lives;
+	public boolean dead;
 	
 	// The physical snake
-	private int[] x;
-	private int[] y;
+ 	public int[] x;
+	public int[] y;
 	private int length;
 	private int ptr;
 	private int dx, dy;
@@ -36,9 +37,11 @@ public class Snake {
 		this.startX = startX;
 		this.startY = startY;
 		this.startLives = lives;
+		this.lives = this.startLives;
 		this.idx = idx;
 		this.addFoodLength = addFoodLength;
 		this.startMoveRate = moveRate;
+		this.dead = false;
 		
 		init();
 	}
@@ -52,11 +55,13 @@ public class Snake {
 		this.score = 0;
 
 		for (int i = 0; i < this.length; i++) {
-			Map.SetSnake(this.x[i], this.y[i]);
+			Map.SetSnake(this.x[i], this.y[i], this.idx);
 		}
 	}
 	
 	public void Update() {
+		if (this.dead)
+			return;
 		moveCtr += moveRate;
 		while(moveCtr > 1){
 			int dir = SnakeMain.controller.getKeyPressed(this.idx);
@@ -95,7 +100,9 @@ public class Snake {
 	
 	private void eat() {
 		grow(this.addFoodLength);
+		
 		this.moveRate += 0.06125f;
+		this.score++;
 	}
 	
 	private void grow(int addFoodLength){
@@ -140,10 +147,15 @@ public class Snake {
 		}
 		
 		this.lives--;
-		this.init();
+		if (this.lives == 0)
+			this.dead = true;
+		else
+			this.init();
 	}
 	
 	public void render(Renderer renderer, int frameCount){
+		if (this.dead)
+			return;
 		for(int i = 0; i < this.length; i++){
 			// if (i == this.ptr)
 				// renderer.drawElement(this.x[i], this.y[i], frameCount, (byte)(40 + this.idx));

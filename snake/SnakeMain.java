@@ -53,10 +53,10 @@ public class SnakeMain {
 		}
 		
 		shapes[Map.WALL] = Renderer.SHAPE_SQUARE;
-		shapes[Map.SNAKE] = Renderer.SHAPE_CIRCLE;
-		shapes[Map.FOOD] = Renderer.SHAPE_TRIANGLE;
+		shapes[Map.SNAKE] = Renderer.SHAPE_SQUARE;
+		shapes[Map.FOOD] = Renderer.SHAPE_SQUARE;
 		
-		renderer = new VortexRenderer(width, height, tileWidth, colors, shapes, shapes.length);
+		renderer = new StarRenderer(width, height, tileWidth, colors, shapes, shapes.length);
 		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);
@@ -64,7 +64,7 @@ public class SnakeMain {
 		SnakeMain.snakeCount = snakeCount;
 		snakes = new Snake[snakeCount];
 		for (int i = 0; i < snakeCount; i++) {
-			snakes[i] = new Snake(i, i, 10, 0.5f, 10, i);
+			snakes[i] = new Snake(i, i, 10, 0.5f, 2, i);
 		}
 		
 		FPS = 20;
@@ -107,7 +107,7 @@ public class SnakeMain {
 		}
 	}
 
-        public static void render(){
+	public static void render(){
 		renderer.clear(frameCount);
 		for(Snake snake : snakes) {
 			snake.render(renderer, frameCount);
@@ -117,7 +117,11 @@ public class SnakeMain {
 		String scoreStr = "";
 		
 		for (int i = 0; i < snakes.length; i++) {
-			scoreStr += "P" + i + ": " + snakes[i].score + " ";
+			scoreStr += "P" + i + ": " + snakes[i].score + "/";
+			if (snakes[i].dead)
+				scoreStr += "X ";
+			else
+				scoreStr += snakes[i].lives + " ";
 		}
 		
 		renderer.blitText(null, scoreStr);
@@ -125,18 +129,18 @@ public class SnakeMain {
 	}
 	
 	public static void Collide(int x, int y, int idx, byte item) {
-		switch (item) {
-			case Map.WALL:
+		if (item == Map.WALL) {
 			snakes[idx].Die();
-			break;
-			case Map.SNAKE:
-			snakes[idx].Die();
-			break;
-			case Map.FOOD:
+		} else if (item == Map.FOOD) {
 			Map.placeFood(x, y);
-			break;
+		} else if (item >= Map.SNAKE_BASE) {
+			snakes[idx].Die();
+			int other = item - Map.SNAKE_BASE;
+			if (snakes[other].x[0] == x && snakes[other].y[0] == y)
+				snakes[other].Die();
 		}
 	}
+	
 	//clean up and kill the game
 	public static void kill(){
 		System.exit(0);
