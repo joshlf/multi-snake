@@ -52,6 +52,7 @@ public class Snake {
 	}
 	
 	public void Update() {
+		System.out.println("Update!");
 		int dir = SnakeMain.controller.getKeyPressed(this.idx);
 		if (dir == DirectionalController.UP && dy != 1) {
 			dx = 0;
@@ -128,9 +129,10 @@ public class Snake {
 		this.lives--;
 		this.init();
 	}
+	
 	public void render(Renderer renderer, int frameCount){
 		for(int i = 0; i < x.length; i++){
-					renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
-				}
+			renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
+		}
 	}
 }
