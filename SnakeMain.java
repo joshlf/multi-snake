@@ -66,6 +66,7 @@ public class SnakeMain {
 		long t1;
 		
 		while (running) {
+			controller.keyReset();
 			for (Snake snake: snakes) {
 				snake.Update();
 			}
