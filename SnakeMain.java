@@ -1,7 +1,9 @@
 import java.awt.Graphics;
 import java.util.Random;
 
+import core.*;
 public class SnakeMain {
+	public DirectionalController control;
 	public static void main(String[] args) {
 		int mapWidth = 100;
 		int mapHeight = 75;
@@ -28,7 +30,8 @@ public class SnakeMain {
 	public static void Init(int width, int height, int snakeCount) {
 		int tileWidth = 8;
 		
-		SnakeFrame.Init();
+		controller = new DirectionalController();
+		GameFrame.Init(width, height, controller);
 		Map.Init(width, height, 2, 2);
 		
 		SnakeMain.snakeCount = snakeCount;
