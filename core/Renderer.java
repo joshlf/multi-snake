@@ -74,9 +74,9 @@ public abstract class Renderer{
 		}
 	}
 	public abstract void clear(int frame);
-	public void margin(int right, int top, int left, int bottom){
+	public void margin(int right, int top, int left, int bottom, int opacity){
 		g.setPaintMode();
-		g.setColor(new Color(0,0,0,128));
+		g.setColor(new Color(0,0,0,opacity));
 		g.fillRect(0, 0, width * tileSize, top * tileSize);//top
 		g.fillRect(0, top * tileSize, left * tileSize, (height - top - bottom) * tileSize);//left
 		g.fillRect(0, (height - top) * tileSize, width * tileSize, bottom * tileSize); //bottom
