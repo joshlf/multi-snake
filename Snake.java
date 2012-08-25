@@ -48,15 +48,19 @@ public class Snake {
 			case Main.controller.UP:
 			dx = 0;
 			dy = -1;
+			break;
 			case Main.controller.LEFT:
 			dx = -1;
 			dy = 0;
+			break;
 			case Main.controller.DOWN:
 			dx = 0;
 			dy = 1;
+			break;
 			case Main.controller.RIGHT:
 			dx = 1;
 			dy = 0;
+			break;
 		}
 		this.moveSnake();
 		Map.MoveTo(this.x[this.ptr], this.y[this.ptr], this);
@@ -95,14 +99,15 @@ public class Snake {
 			this.y[i] = this.y[i - 1] + dx;
 		}
 		
-		this.length = newLength
-		this.ptr = this.addFoodLength
+		this.length = newLength;
+		this.ptr = this.addFoodLength;
 	}
 	
 	public void Collide(byte item) {
-		switch item {
+		switch (item) {
 			case Map.FOOD:
 			this.eat();
+			break;
 		}
 	}
 	
