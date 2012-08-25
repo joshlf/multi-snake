@@ -40,7 +40,21 @@ public class SnakeMain {
 		controller = new DirectionalController(2);
 		GameFrame.Init(width * tileWidth, height * tileWidth, controller);
 
-		renderer = new VortexRenderer(width, height, tileWidth, null, null, 0);
+		byte[] shapes = new byte[Map.NUM_TYPES];
+		Color[] colors = new Color[Map.NUM_TYPES];
+		
+		for (int i = 0; i < shapes.length; i++) {
+			shapes[i] = Renderer.SHAPE_RANDOM;
+		}
+		for (int i = 0; i < colors.length; i++) {
+			colors[i] = Renderer.COLOR_RANDOM;
+		}
+		
+		shapes[Map.WALL] = Renderer.SHAPE_SQUARE;
+		shapes[Map.SNAKE] = Renderer.SHAPE_CIRCLE;
+		shapes[Map.FOOD] = Renderer.SHAPE_TRIANGLE;
+		
+		renderer = new StarRenderer(width, height, tileWidth, colors, shapes, 0);
 		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);

@@ -4,7 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Map {
-	public static final byte BLANK = 0, WALL = 1, FOOD = 2, SNAKE = 100;
+	public static final byte BLANK = 0, WALL = 1, FOOD = 2, SNAKE = 3;
+	public static final byte NUM_TYPES = 4;
 	
 	static byte[][] tiles;
 	public static int width;
