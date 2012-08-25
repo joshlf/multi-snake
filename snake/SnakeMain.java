@@ -11,6 +11,8 @@ import core.*;
 public class SnakeMain {
 	public static DirectionalController controller;
 	public static Renderer renderer;
+	public static offsetX;
+	public static offsetY;
 
 	static int FPS, TPF;
 	
@@ -29,7 +31,7 @@ public class SnakeMain {
 			}
 		}
 		
-		Init(mapWidth, mapHeight, 2);
+		Init(mapWidth, mapHeight, 10, 10, 2);
 		while (true) {
 			initLevel();
 			run();
@@ -37,7 +39,10 @@ public class SnakeMain {
 	}
 	
 	
-	public static void Init(int width, int height, int snakeCount) {
+	public static void Init(int width, int height, int offX, int offY, int snakeCount) {
+		SnakeMain.offsetX = offX;
+		SnakeMain.offsetY = offY;
+		
 		int tileWidth = 8;
 		int[][] controls = new int[snakeCount][4];
 		

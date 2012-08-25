@@ -161,7 +161,7 @@ public class Snake {
 				// renderer.drawElement(this.x[i], this.y[i], frameCount, (byte)(40 + this.idx));
 			// else if (this.x[i] != -1)
 			if (this.x[i] != -1)
-				renderer.drawElement(this.x[i], this.y[i], frameCount, Map.SNAKE);
+				renderer.drawElement(this.x[i] + SnakeMain.offsetX, this.y[i] + SnakeMain.offsetY, frameCount, Map.SNAKE);
 		}
 	}
 }
