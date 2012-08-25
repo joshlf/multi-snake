@@ -3,6 +3,7 @@ package core;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.Color;
+import java.awt.Font;
 
 import java.util.Random;
 
@@ -70,6 +71,30 @@ public abstract class Renderer{
 	}
 	public abstract void clear(int frame);
 	public abstract void drawElement(int x, int y, int frame, byte elementType);
+	int[][] tempShape = new int[2][10];
+	protected void drawShape(int x, int y, byte shape){
+		x *= tileSize;
+		y *= tileSize;
+		switch(shape){
+			case SHAPE_SQUARE:
+				g.fillRect(x, y, tileSize, tileSize);
+			break;
+			case SHAPE_CIRCLE:
+				g.fillOval(x, y, tileSize, tileSize);
+			break;
+			default:
+				int l = shapePoints[shape][0].length;
+				for(int i = 0; i < l; i++){
+					tempShape[0][i] = shapePoints[shape][0][i] + x;
+					tempShape[1][i] = shapePoints[shape][1][i] + y;
+					//System.out.print("(" + tempShape[0][i] + ", " + tempShape[1][i] + "), ");
+				}
+				//System.out.println("");
+				g.setColor(Color.black);
+				g.fillPolygon(tempShape[0], tempShape[1], l);
+			break;
+		}
+	}
 	public void renderMap(byte[][] map, int frame){
 		int xM = Math.min(map.length, width);
 		int yM = Math.min(map[0].length, height);
@@ -101,6 +126,7 @@ public abstract class Renderer{
 	
 	public void blitText(Color c, String text){
 		if(c != null) g.setColor(c);
+		g.setFont(new Font("Sans-Serif", Font.BOLD, 15));
 		g.drawString(text, 15, 15);
 	}
 }
