@@ -67,13 +67,13 @@ public class Snake {
 			dy = 0;
 			break;
 		}
+		System.out.println(this.length + ": " + this.x[this.ptr] + ", " + this.y[this.ptr]);
+		// System.out.println(this.x[this.ptr] + ", " + this.y[this.ptr]);
 		this.moveSnake();
 		Map.MoveTo(this.x[this.ptr], this.y[this.ptr], this);
 	}
 	
 	private void moveSnake() {
-		// System.out.println("Moving...");
-		// System.out.println(this.ptr + " " + this.x[this.ptr] + " " + this.y[this.ptr]);
 		int oldPtr = this.ptr;
 		// System.out.println(oldPtr);
 		this.ptr = (this.ptr + 1) % this.length;
@@ -114,6 +114,7 @@ public class Snake {
 	}
 	
 	public void Collide(byte item) {
+		System.out.println(item);
 		switch (item) {
 			case Map.FOOD:
 			this.eat();
@@ -127,7 +128,7 @@ public class Snake {
 	}
 	public void render(Renderer renderer, int frameCount){
 		for(int i = 0; i < x.length; i++){
-			renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
-		}
+							renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
+						}
 	}
 }
