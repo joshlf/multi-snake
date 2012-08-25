@@ -113,7 +113,14 @@ public class SnakeMain {
 			snake.render(renderer, frameCount);
 		}
 		renderer.renderMap(Map.tiles, frameCount);
-		renderer.blitText(null, "STUFF");
+		
+		String scoreStr = "";
+		
+		for (int i = 0; i < snakes.length; i++) {
+			scoreStr += "P" + i + ": " + snakes[i].score + " ";
+		}
+		
+		renderer.blitText(null, scoreStr);
 		GameFrame.render(renderer.buffer); //render to screen
 	}
 	
