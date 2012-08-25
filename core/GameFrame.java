@@ -31,8 +31,4 @@ public class GameFrame
         frame.getGraphics().drawImage(image, 5, 20, null);
         // frame.repaint();
     }
-
-    public static byte getKeyPressed(int index){
-	getKeyPressed
-    }
 }

@@ -63,8 +63,6 @@ public class SnakeMain {
 				snake.Update();
 			}
 			
-			render(GameFrame.bufferG);
-			
 			t1 = System.currentTimeMillis();
 			long timePassed = t1 - t0;
 			t0 = t1;
