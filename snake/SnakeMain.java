@@ -113,8 +113,7 @@ public class SnakeMain {
 			snake.render(renderer, frameCount);
 		}
 		renderer.renderMap(Map.tiles, frameCount);
-		renderer.drawElement(4, 4, 1, (byte)(10));		
-		GameFrame.render(renderer.buffer);//render to screen
+		GameFrame.render(renderer.buffer); //render to screen
 	}
 	
 	public static void Collide(int x, int y, int idx, byte item) {
