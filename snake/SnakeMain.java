@@ -153,7 +153,7 @@ public class SnakeMain {
 				scoreStr += snakes[i].lives + " ";
 		}
 		
-		renderer.blitText(null, scoreStr);
+		renderer.blitText(new Color(255, 255, 255), scoreStr);
 		GameFrame.render(renderer.buffer); //render to screen
 	}
 	
