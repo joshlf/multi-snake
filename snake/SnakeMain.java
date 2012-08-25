@@ -39,11 +39,20 @@ public class SnakeMain {
 	
 	public static void Init(int width, int height, int snakeCount) {
 		int tileWidth = 8;
+		int[][] controls = new int[snakeCount][4];
 		
-		controller = new DirectionalController(new int[][] {
-		new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN}, 
-		new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S}
-	    });
+		controls[0] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN};
+		if (snakeCount > 1)
+			controls[1] = new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S};
+		if (snakeCount > 2)
+			controls[2] = new int[]{KeyEvent.VK_L, KeyEvent.VK_I, KeyEvent.VK_J, KeyEvent.VK_K};
+		
+		controller = new DirectionalController(controls);
+		// controller = new DirectionalController(new int[][] {
+		// 		new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN}, 
+		// 		new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S},
+		// 		new int[]{KeyEvent.VK_L, KeyEvent.VK_I, KeyEvent.VK_J, KeyEvent.VK_K}
+		// 	    });
 		GameFrame.Init(width * tileWidth, height * tileWidth, controller);
 
 		byte[] shapes = new byte[Map.NUM_TYPES];
