@@ -1,22 +1,24 @@
 package core;
 //A SolidColorRenderer keeps track of the color and shape of each elementType, and renders it accordingly.
 import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics;
 import java.util.Random;
 
-public class SolidColorRenderer extends Renderer{
+public class VortexRenderer extends Renderer{
 	public static final byte SQUARE = 0, CIRCLE = 1;
 	byte[] shapes;
 	Color[] colors;
 	int elementsUsed;
 	int[] imgInt;
-	public SolidColorRenderer(int width, int height, int tileSize, int elementsUsed){
+	public VortexRenderer(int width, int height, int tileSize, int elementsUsed){
 		super(width, height, tileSize);
 		shapes = new byte[127];
 		colors = new Color[127];
 		this.elementsUsed = elementsUsed;
-		imgInt = 
+		imgInt = buffer.getRGB(0,0, buffer.getWidth(), buffer.getHeight(), null, 0, buffer.getWidth());
+
 	}
 
 	public void randomizeColors(){
@@ -26,16 +28,24 @@ public class SolidColorRenderer extends Renderer{
 		}
 	}
 
+	int frame = 0;
 	public void clear(){
-		
+		int xSize = width * tileSize;
+		int ySize = height * tileSize;
+		for(int x = 0; x < xSize; x++){
+			for(int y = 0; y < ySize; y++){
+				imgInt[x + y * xSize] = (x + frame) % 0x100 + (y + frame) * 0x100 % 0x10000 + (x + y + frame) % 255 * 0x10000;
+			}
+		}
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, width * tileSize, height * tileSize);
 	}
-	public void drawElement(int x, int y, frame, byte elementType){
+	public void drawElement(int x, int y, int frame, byte elementType){
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setXORMODE(colors[elementType]);
+		g2.setXORMode(colors[elementType]);
 		x *= tileSize;
 		y *= tileSize;
+		frame++;
 		switch(shapes[elementType]){
 			case SQUARE:
 				g.fillRect(x, y, tileSize, tileSize);
