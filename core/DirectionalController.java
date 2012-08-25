@@ -5,23 +5,28 @@ import snake.*;
 public class DirectionalController implements KeyListener{
     public static final int RIGHT = 0, UP = 1, LEFT = 2, DOWN = 3, NONE = 4;
     //keyMappings follows [player][key] indexing.
-    public static int[][] keyMappings = new int[][] {
-	new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN}, 
-	new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S}
-    };
+    public static int[][] keyMappings;
     public int QUEUESIZE = 16;
     public int players;
     public int[][] keyCues;
     public int[] keyCuePos;
 
-    public DirectionalController(int players){
-	this.players = players;
-	keyCuePos = new int[players];
-	keyCues = new int[players][QUEUESIZE];
-    }
-//key events
-    public void keyReset()
-    {
+	public DirectionalController(int[][] keyMappings) {
+		DirectionalController.keyMappings = keyMappings;
+		this.players = players;
+		this.keyCuePos = new int[keyMappings.length];
+		this.keyCues = new int[keyMappings.length][QUEUESIZE];
+		this.players = keyMappings.length;
+	}
+	
+	//     public DirectionalController(int players){
+	// this.players = players;
+	// keyCuePos = new int[players];
+	// keyCues = new int[players][QUEUESIZE];
+	//     }
+	
+	//key events
+    public void keyReset() {
     }
     /** Handle the key typed event from the text field. */
     public void keyTyped(KeyEvent e)
@@ -30,8 +35,7 @@ public class DirectionalController implements KeyListener{
     }
 
     /** Handle the key pressed event from the text field. */
-    public void keyPressed(KeyEvent e)
-    {
+    public void keyPressed(KeyEvent e) {
 //#Pretend this is a hash table
         int key = e.getKeyCode();
         for(int i = 0; i < keyMappings.length; i++) {

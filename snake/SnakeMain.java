@@ -2,6 +2,7 @@ package snake;
 
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.event.*;
 import java.util.Random;
 
 
@@ -39,7 +40,10 @@ public class SnakeMain {
 	public static void Init(int width, int height, int snakeCount) {
 		int tileWidth = 8;
 		
-		controller = new DirectionalController(2);
+		controller = new DirectionalController(new int[][] {
+		new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN}, 
+		new int[]{KeyEvent.VK_D, KeyEvent.VK_W, KeyEvent.VK_A, KeyEvent.VK_S}
+	    });
 		GameFrame.Init(width * tileWidth, height * tileWidth, controller);
 
 		byte[] shapes = new byte[Map.NUM_TYPES];
