@@ -74,4 +74,12 @@ public class SnakeMain {
 			}
 		}
 	}
+	
+	public static void Collide(int x, int y, int idx, byte item) {
+		switch item {
+			case WALL:
+			
+			case SNAKE:
+		}
+	}
 }
