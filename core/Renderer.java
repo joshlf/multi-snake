@@ -3,6 +3,8 @@ package core;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import snake.Map;
+
 public abstract class Renderer{
 	public static final byte WALLS = 0, POWERUPS = 16, PLAYERS = 32;
 
