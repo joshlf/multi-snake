@@ -30,6 +30,14 @@ public class Map {
 		tiles[x1][y1] = SNAKE;
 	}
 	
+	public static void Remove(int x, int y) {
+		tiles[x][y] = BLANK;
+	}
+	
+	public static void SetSnake(int x, int y) {
+		tiles[x][y] = SNAKE;
+	}
+	
 	static void initTiles() {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {

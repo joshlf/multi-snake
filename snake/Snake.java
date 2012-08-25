@@ -44,6 +44,10 @@ public class Snake {
 		this.length = 1;
 		this.ptr = length - 1;
 		this.score = 0;
+		
+		for (int i = 0; i < this.length; i++) {
+			Map.SetSnake(this.x[i], this.y[i]);
+		}
 	}
 	
 	public void Update() {
@@ -127,12 +131,16 @@ public class Snake {
 	}
 	
 	public void Die() {
+		for (int i = 0; i < this.length; i++) {
+			Map.Remove(this.x[i], this.y[i]);
+		}
+		
 		this.lives--;
 		this.init();
 	}
 	public void render(Renderer renderer, int frameCount){
 		for(int i = 0; i < x.length; i++){
-							renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
-						}
+			renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
+		}
 	}
 }
