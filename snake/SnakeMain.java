@@ -48,7 +48,7 @@ public class SnakeMain {
 		SnakeMain.snakeCount = snakeCount;
 		snakes = new Snake[snakeCount];
 		for (int i = 0; i < snakeCount; i++) {
-			snakes[i] = new Snake(i, i, 10, 10, i);
+			snakes[i] = new Snake(i, i, 10, 0.5f, 10, i);
 		}
 		
 		FPS = 20;
@@ -105,10 +105,13 @@ public class SnakeMain {
 		switch (item) {
 			case Map.WALL:
 			snakes[idx].Die();
+			break;
 			case Map.SNAKE:
 			snakes[idx].Die();
+			break;
 			case Map.FOOD:
 			Map.placeFood(x, y);
+			break;
 		}
 	}
 	//clean up and kill the game

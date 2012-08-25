@@ -19,6 +19,8 @@ public class Snake {
 	private int ptr;
 	private int dx, dy;
 	private int addFoodLength;
+	private float moveRate = .5f;
+	private float moveCtr;
 	
 	private int startX;
 	private int startY;
@@ -26,8 +28,9 @@ public class Snake {
 	private int startDX;
 	private int startDY;
 	private int startLives;
+	private float startMoveRate;
 	
-	public Snake(int startX, int startY, int addFoodLength, int lives, int idx) {
+	public Snake(int startX, int startY, int addFoodLength, float moveRate, int lives, int idx) {
 		this.x = new int[MAX_LENGTH];
 		this.y = new int[MAX_LENGTH];
 		this.startX = startX;
@@ -35,6 +38,7 @@ public class Snake {
 		this.startLives = lives;
 		this.idx = idx;
 		this.addFoodLength = addFoodLength;
+		this.startMoveRate = moveRate;
 		
 		init();
 	}
@@ -42,17 +46,15 @@ public class Snake {
 	private void init() {
 		this.x[0] = this.startX;
 		this.y[0] = this.startY;
+		this.moveRate = this.startMoveRate;
 		this.length = 1;
 		this.ptr = length - 1;
 		this.score = 0;
-		
+
 		for (int i = 0; i < this.length; i++) {
 			Map.SetSnake(this.x[i], this.y[i]);
 		}
 	}
-	
-	float moveRate = .5f;
-	float moveCtr;
 	
 	public void Update() {
 		moveCtr += moveRate;
@@ -133,11 +135,9 @@ public class Snake {
 	}
 	
 	public void Die() {
-		int inc = 0;
-		for (int i = this.ptr; (i != this.ptr || inc == 0) && this.x[i] != -1; i = (i + this.length - 1) % this.length) {
-			System.out.println(i + ": (" + this.x[i] + ", " + this.y[i] + ")");
-			Map.Remove(this.x[i], this.y[i]);
-			inc++;
+		for (int i = 0; i < x.length; i++) {
+			if (this.x[i] != -1)
+				Map.Remove(this.x[i], this.y[i]);
 		}
 		
 		this.lives--;
@@ -146,7 +146,8 @@ public class Snake {
 	
 	public void render(Renderer renderer, int frameCount){
 		for(int i = 0; i < x.length; i++){
-			renderer.drawElement(x[i], y[i], frameCount, (byte)(10 + idx));
+			if (this.x[i] != -1)
+				renderer.drawElement(this.x[i], this.y[i], frameCount, (byte)(10 + this.idx));
 		}
 	}
 }
