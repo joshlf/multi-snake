@@ -13,6 +13,8 @@ public class SnakeMain {
 	public static Renderer renderer;
 	public static int offsetX;
 	public static int offsetY;
+	
+	public static int foodInterval = 2;
 
 	static int FPS, TPF;
 	
@@ -105,6 +107,9 @@ public class SnakeMain {
 		
 	controller.keyReset();
 		while (running) {
+			if (frameCount % (foodInterval * FPS) == 0)
+				Map.placeFood(-1, -1);
+			
 			for (Snake snake: snakes) {
 				snake.Update();
 			}
@@ -153,7 +158,7 @@ public class SnakeMain {
 				scoreStr += snakes[i].lives + " ";
 		}
 		
-		renderer.blitText(null, scoreStr);
+		renderer.blitText(new Color(255, 255, 255), scoreStr);
 		GameFrame.render(renderer.buffer); //render to screen
 	}
 	
