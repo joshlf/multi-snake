@@ -13,6 +13,8 @@ public class SnakeMain {
 	public static Renderer renderer;
 	public static int offsetX;
 	public static int offsetY;
+	
+	public static int foodInterval = 2;
 
 	static int FPS, TPF;
 	
@@ -105,6 +107,9 @@ public class SnakeMain {
 		
 	controller.keyReset();
 		while (running) {
+			if (frameCount % (foodInterval * FPS) == 0)
+				Map.placeFood(-1, -1);
+			
 			for (Snake snake: snakes) {
 				snake.Update();
 			}
