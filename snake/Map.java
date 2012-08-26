@@ -61,7 +61,7 @@ public class Map {
 		int w2 = width / 2;
 		int h2 = height / 2;
 		int a, b;
-		float constant = .01f;
+		float constant = .0025f;
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				a = i - w2;
