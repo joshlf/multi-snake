@@ -20,8 +20,8 @@ public class SnakeMain {
 	public static int snakeCount;
 	private static boolean running = true;
 	public static void main(String[] args) {
-		int mapWidth = 100;
-		int mapHeight = 75;
+		int mapWidth = 80;
+		int mapHeight = 40;
 		
 		for (int i = 0; i < args.length - 1; i++) {
 			if (args[i].equals("-w")) {
@@ -43,7 +43,7 @@ public class SnakeMain {
 		SnakeMain.offsetX = xMarg;
 		SnakeMain.offsetY = yMarg;
 		
-		int tileWidth = 8;
+		int tileWidth = 16;
 		int[][] controls = new int[snakeCount][4];
 		
 		controls[0] = new int[]{KeyEvent.VK_RIGHT, KeyEvent.VK_UP, KeyEvent.VK_LEFT, KeyEvent.VK_DOWN};
@@ -87,7 +87,7 @@ public class SnakeMain {
 			snakes[i] = new Snake(i, i, 10, 0.5f, 10, i);
 		}
 		
-		FPS = 20;
+		FPS = 10;
 		TPF = 1000 / FPS;
 	}
 	

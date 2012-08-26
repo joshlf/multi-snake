@@ -20,7 +20,7 @@ public class Snake {
 	private int ptr;
 	private int dx, dy;
 	private int addFoodLength;
-	private float moveRate = .5f;
+	private float moveRate = .06125f;
 	private float moveCtr;
 	
 	private int startX;
@@ -101,7 +101,7 @@ public class Snake {
 	private void eat() {
 		grow(this.addFoodLength);
 		
-		this.moveRate += 0.06125f;
+		this.moveRate += 0.01f;
 		this.score++;
 	}
 	
