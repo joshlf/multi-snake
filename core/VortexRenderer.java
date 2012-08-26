@@ -15,6 +15,10 @@ public class VortexRenderer extends Renderer{
 	int[][] coeffs = new int[][]{new int[]{1, 2, 3}, new int[]{4, 3, 2}, new int[]{3, 7, 5}, new int[]{11, 7, 13}, new int[]{17, 23, 19}};
 
 	public void clear(int frame){
+		int l = rand.nextInt(coeffs.length);
+		int m = rand.nextInt(coeffs[0].length);
+		coeffs[l][m] += rand.nextInt(5) - 2;
+		if(coeffs[l][m] < 0) coeffs[l][m] = 0;
 		int xSize = width * tileSize;
 		int ySize = height * tileSize;
 		int[] c = new int[3];

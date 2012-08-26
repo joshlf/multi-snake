@@ -78,7 +78,7 @@ public class SnakeMain {
 		shapes[Map.FOOD] = Renderer.SHAPE_SQUARE;
 		shapes[Map.MARGIN] = Renderer.SHAPE_SQUARE;
 		
-		renderer = new StarRenderer(width + xMarg * 2, height + yMarg * 2, tileWidth, colors, shapes, shapes.length);
+		renderer = new VortexRenderer(width + xMarg * 2, height + yMarg * 2, tileWidth, colors, shapes, shapes.length);
 		//renderer = new SolidColorRenderer(width, height, tileWidth, 127);
 
 		Map.Init(width, height);
